@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 public class JpaUtil {
     private static final EntityManagerFactory factory;
     static {
-        factory = Persistence.createEntityManagerFactory("Cclinica_Vet");
+        factory = Persistence.createEntityManagerFactory("Clinica");
     }
     
     public static EntityManager getEntityManager() {
