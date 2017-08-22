@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.io.Serializable;
@@ -6,65 +5,57 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
-import modelo.Pessoa;
+import modelo.Medico;
 import util.JpaUtil;
 
-
-public class PessoaDao implements Serializable {
+public class MedicoDao implements Serializable {
     EntityManager manager;
     
-    /**
-     * Altera os dados do objeto com o codigo igual ao parâmetro.
-     * @param d
-     * @return 
-     */
-    public boolean alterar(Disciplina d){
+    public boolean alterar(Medico med){
         manager = JpaUtil.getEntityManager();
         manager.getTransaction().begin();
-        manager.merge(d);
+        manager.merge(med);
         manager.getTransaction().commit();
         manager.close();
         return true;
     }
     
-    public Disciplina buscarPorCodigo(int cod){
+    public Medico buscarPorCodigo(int cod){
         manager = JpaUtil.getEntityManager();
-        Disciplina disciplina = manager.find(Disciplina.class, cod);
+        Medico med = manager.find(Medico.class, cod);
         manager.close();
-        return disciplina;
+        return med;
     }
-    
-    
-    public boolean excluir(Disciplina disciplina){
+        
+    public boolean excluir(Medico med){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 
         tx.begin();
         // recupera a referência ao objeto
-        Disciplina temp = manager.find(Disciplina.class, disciplina.getCodigo());
+        Medico temp = manager.find(Medico.class, med.getCodigo());
         manager.remove(temp);
         tx.commit();
         manager.close();
         return true;
     }
     
-    public boolean inserir(Disciplina disciplina){
+    public boolean inserir(Medico med){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        manager.persist(disciplina);
+        manager.persist(med);
         tx.commit();
         manager.close();
         return true;
     }
     
-    public List<Disciplina> listarTodos(){
+    public List<Medico> listarTodos(){
         manager = JpaUtil.getEntityManager();
-        CriteriaQuery<Disciplina> query = manager.getCriteriaBuilder().createQuery(Disciplina.class);
-        query.select(query.from(Disciplina.class));
-        List<Disciplina> lista = manager.createQuery(query).getResultList();
+        CriteriaQuery<Medico> query = manager.getCriteriaBuilder().createQuery(Medico.class);
+        query.select(query.from(Medico.class));
+        List<Medico> lista = manager.createQuery(query).getResultList();
         manager.close();
         return lista;
     }
-        
-    
+ 
 }
