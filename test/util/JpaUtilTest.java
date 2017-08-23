@@ -1,46 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
-import javax.persistence.EntityManager;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import dao.MedicoDao;
+import dao.ProprietarioDao;
+import modelo.Medico;
+import modelo.Proprietario;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-/**
- *
- * @author dario
- */
 public class JpaUtilTest {
     
     public JpaUtilTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testeconexao(){
-        EntityManager em = JpaUtil.getEntityManager();
-        assertNotNull(em);
+        Medico med = new Medico();
+        med.setNome("SOJINHA KAWAII");
+        med.setCRMV(7662);
+        med.setCodigo(1);
+        MedicoDao daoMed = new MedicoDao();
+        daoMed.inserir(med);
+        
+        Proprietario prop = new Proprietario();
+        prop.setNome("SOJINHA PROPRIETARIO");
+        prop.setCPF(798392662);
+        prop.setCodigo(1);
+        ProprietarioDao daoProp = new ProprietarioDao();
+        daoProp.inserir(prop);
     }
 }
