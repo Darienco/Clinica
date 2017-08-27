@@ -1,1 +1,4 @@
 /build/
+/nbproject/private/
+/src/java/META-INF/
+/dist/

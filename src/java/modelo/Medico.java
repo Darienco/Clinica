@@ -12,11 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TbMedico")
 
-<<<<<<< HEAD
 public class Medico implements Serializable {
-=======
-public class Medico implements Serializable{
->>>>>>> master
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
