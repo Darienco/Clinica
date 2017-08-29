@@ -1,99 +1,99 @@
 package managedbean;
   
-import dao.MedicoDao;
+import dao.FuncionarioDao;
 import java.util.ArrayList;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import modelo.Medico;
+import modelo.Funcionario;
    
-@ManagedBean(name="MedicoMB")
+@ManagedBean(name="FuncionarioMB")
 @SessionScoped
-public class MedicoMB {
+public class FuncionarioMB {
     private static final long serialVersionUID = 8103328274400432976L;
-    private Medico med;
-    private List<Medico> lista = new ArrayList<>();
+    private Funcionario func;
+    private List<Funcionario> lista = new ArrayList<>();
  
-    MedicoDao dao = new MedicoDao();
+    FuncionarioDao dao = new FuncionarioDao();
  
-    public MedicoMB() {
-        med = new Medico();
+    public FuncionarioMB() {
+        func = new Funcionario();
         listar();
     }
  
     public void alterar() {
-	System.out.println("Alterar médico");
-	dao.alterar(med);
+	System.out.println("Alterar funcionário");
+	dao.alterar(func);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
             null,
             new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Manutenção de médico: ",
-		"Médico alterado com sucesso!"));
+                "Manutenção de funcionário: ",
+		"Funcionário alterado com sucesso!"));
     }
  
     public void consultar() {
-	long codMedico = med.getCodigo();
+	long codFunc = func.getCodigo();
 	System.out.println("Consultar");
-	med = dao.buscarPorCodigo((int) codMedico);
-	if (med == null || med.getCodigo()== 0) {
+	func = dao.buscarPorCodigo((int) codFunc);
+	if (func == null || func.getCodigo()== 0) {
             FacesContext.getCurrentInstance().addMessage(
             null,
             new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		"Manutenção de médico: ",
-		"Médico não encontrado, código: " + codMedico + "!"));
+		"Manutenção de funcionário: ",
+		"Funcionário não encontrado, código:" + codFunc + "!"));
 	}
 	listar();
     }
  
     public void excluir() {
-        System.out.println("Excluir médico");
-	dao.excluir(med);
+        System.out.println("Excluir funcionário");
+	dao.excluir(func);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
             null,
             new FacesMessage(FacesMessage.SEVERITY_INFO,
-		"Manutenção de médico: ",
-		"Médico excluído com sucesso!"));
+		"Manutenção de funcionário: ",
+		"Funcionário excluído com sucesso!"));
     }
  
-    public Medico getMedico() {
-        return med;
+    public Funcionario getFuncionario() {
+        return func;
     }
  
-    public List<Medico> getLista() {
+    public List<Funcionario> getLista() {
 	return lista;
     }
  
     public void incluir() {
-	System.out.println("Incluir médico");
-	dao.inserir(med);
+	System.out.println("Incluir funcionário");
+	dao.inserir(func);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
             null,
             new FacesMessage(FacesMessage.SEVERITY_INFO,
-		"Manutenção de médico: ",
-		"Médico incluído com sucesso!"));
+		"Manutenção de funcionário: ",
+		"Funcionário incluido com sucesso!"));
     }
  
     public void limpar() {
 	System.out.println("Limpar");
-	System.out.println(med);
-	med = new Medico();
+	System.out.println(func);
+	func = new Funcionario();
     }
  
     public void listar() {
-	System.out.println("Listar médico");
+	System.out.println("Listar funcionário");
         lista = dao.listarTodos();
     }
  
-    public void setMedico(Medico med) {
-        this.med = med;
+    public void setFuncionario(Funcionario func) {
+        this.func = func;
     }
  
-    public void setLista(List<Medico> lista) {
+    public void setLista(List<Funcionario> lista) {
         this.lista = lista;
     }
 }

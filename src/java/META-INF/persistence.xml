@@ -3,6 +3,7 @@
   <persistence-unit name="Clinica" transaction-type="RESOURCE_LOCAL">
     <class>modelo.Medico</class>
     <class>modelo.Proprietario</class>
+    <class>modelo.Funcionario</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Clinica"/>

@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "TbFuncionario")
 
 public class Funcionario implements Serializable {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdFuncionario")
@@ -21,7 +20,6 @@ public class Funcionario implements Serializable {
     
     @Column(length = 14, name = "CPF")
     private Integer CPF;
-    // CPF = LOGIN
     
     @Column(length = 100, name ="Senha")
     private String Senha; 

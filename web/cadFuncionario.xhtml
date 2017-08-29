@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  </h:head>
+  <h:body>
+    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
+    <h:form id="frmAluno">
+	<p:panelGrid columns="2" style="horizontal-align:center">
+            <h:outputText value="Código:" />
+            <h:inputText id="cod" value="#{FuncionarioMB.funcionario.codigo}" />
+	    <h:outputLabel value="Nome:" />
+            <h:inputText id="Nome" value="#{FuncionarioMB.funcionario.nome}" />
+            <h:outputLabel for="CPF" value="CPF:" />
+            <h:inputText id="CPF" value="#{FuncionarioMB.funcionario.CPF}" />
+            <h:outputLabel for="Senha" value="Senha:" />
+            <h:inputText id="Senha" value="#{FuncionarioMB.funcionario.senha}" />
+	</p:panelGrid>
+        <p:panelGrid columns="6">
+            <h:commandButton action="#{FuncionarioMB.incluir}" value="Incluir" />
+            <h:commandButton action="#{FuncionarioMB.alterar}" value="alterar" />
+            <h:commandButton action="#{FuncionarioMB.consultar}" value="Consultar" />
+            <h:commandButton action="#{FuncionarioMB.listar}" value="Listar" />
+            <h:commandButton action="#{FuncionarioMB.excluir}" value="Excluir" />
+            <h:commandButton action="#{FuncionarioMB.limpar}" value="Limpar" />
+	</p:panelGrid>
+    </h:form>
+	<p:dataTable id="tabela" var="item" value="#{FuncionarioMB.lista}"
+            paginator="true" rows="50" emptyMessage="Não há registros na lista"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="10,15,25,50,100">
+            <f:facet name="header">Lista de Funcionários</f:facet>
+            <p:column headerText="Código" style="width: 10%;"
+                      sortBy="#{item.codigo}">
+                <h:outputText value="#{item.codigo}" />
+            </p:column>
+            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
+                <h:outputText value="#{item.nome}" />
+            </p:column>
+            <p:column headerText="CPF" style="width: 25%;" sortBy="#{item.CPF}">
+                <h:outputText value="#{item.CPF}" />
+            </p:column>
+            <p:column headerText="Senha" style="width: 25%;" sortBy="#{item.senha}">
+                <h:outputText value="#{item.senha}" />
+            </p:column>
+	</p:dataTable>
+</h:body>
+</html>
