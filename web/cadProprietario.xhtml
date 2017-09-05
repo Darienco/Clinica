@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+      <title>Cadastro de Proprietario</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </h:head>
+  <h:body>
+    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
+    <h:form id="frmAluno">
+	<p:panelGrid columns="2" style="horizontal-align:center">
+            <h:outputText value="Nome:" />
+            <h:inputText id="Nome" maxlength="150" requiredMessage="Nome obrigatório"
+                required="true" value="#{ProprietarioMB.proprietario.nome}" />
+	    <h:outputLabel value="CPF:" />
+            <h:inputText id="CPF" maxlength="14" requiredMessage="CPF obrigatório"
+                required="true" value="#{ProprietarioMB.proprietario.CPF}" />
+            <h:outputLabel for="Telefone" value="Telefone:" />
+            <h:inputText id="Telefone" maxlength="20"
+                         value="#{ProprietarioMB.proprietario.telefone}" />
+            <h:outputLabel for="Endereco" value="Endereço:" />
+            <h:inputText id="Endereco" maxlength="500"
+                         value="#{ProprietarioMB.proprietario.endereco}" />
+	</p:panelGrid>
+        <p:panelGrid columns="6">
+            <h:commandButton action="#{ProprietarioMB.incluir}" value="Incluir" />
+            <h:commandButton action="#{ProprietarioMB.alterar}" value="alterar" />
+            <h:commandButton action="#{ProprietarioMB.consultar}" value="Consultar" />
+            <h:commandButton action="#{ProprietarioMB.listar}" value="Listar" />
+            <h:commandButton action="#{ProprietarioMB.excluir}" value="Excluir" />
+            <h:commandButton action="#{ProprietarioMB.limpar}" value="Limpar" />
+	</p:panelGrid>
+    </h:form>
+	<p:dataTable id="tbProp" var="item" value="#{ProprietarioMB.lista}"
+            paginator="true" rows="50" emptyMessage="Não há registros na lista"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="10,15,25,50,100">
+            <f:facet name="header">Lista de Proprietários</f:facet>
+            <p:column headerText="Código" style="width: 10%;"
+                      sortBy="#{item.codigo}">
+                <h:outputText value="#{item.codigo}" />
+            </p:column>
+            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
+                <h:outputText value="#{item.nome}" />
+            </p:column>
+            <p:column headerText="CPF" style="width: 25%;" sortBy="#{item.CPF}">
+                <h:outputText value="#{item.CPF}" />
+            </p:column>
+            <p:column headerText="Telefone" style="width: 25%;" sortBy="#{item.telefone}">
+                <h:outputText value="#{item.telefone}" />
+            </p:column>
+            <p:column headerText="Endereço" style="width: 25%;" sortBy="#{item.endereco}">
+                <h:outputText value="#{item.endereco}" />
+            </p:column>
+	</p:dataTable>
+</h:body>
+</html>

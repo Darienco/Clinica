@@ -20,7 +20,7 @@ public class Proprietario implements Serializable{
     private Integer IdProprietario;
     
     @Column(length = 14, name = "CPF")
-    private Integer CPF;
+    private String CPF;
     
     @Column(length = 150, name = "Nome")
     private String Nome;
@@ -33,7 +33,7 @@ public class Proprietario implements Serializable{
     
     public Proprietario(){
         this.IdProprietario = 0;
-        this.CPF = 0;
+        this.CPF = "";
         this.Endereco = "";
         this.Nome = "";
         this.Telefone = "";
@@ -47,11 +47,11 @@ public class Proprietario implements Serializable{
         this.IdProprietario = IdProprietario;
     }
 
-    public Integer getCPF() {
+    public String getCPF() {
         return CPF;
     }
 
-    public void setCPF(Integer CPF) {
+    public void setCPF(String CPF) {
         this.CPF = CPF;
     }
 
