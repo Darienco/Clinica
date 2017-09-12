@@ -1,19 +1,22 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TbProprietario")
 
 public class Proprietario implements Serializable{
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdProprietario")
@@ -30,6 +33,9 @@ public class Proprietario implements Serializable{
     
     @Column(length = 20, name = "Telefone")
     private String Telefone;
+    
+    @OneToMany(mappedBy = "prop", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Animal> animais;
     
     public Proprietario(){
         this.IdProprietario = 0;
@@ -97,4 +103,18 @@ public class Proprietario implements Serializable{
         }
         return true;
     }    
+
+    /**
+     * @return the animais
+     */
+    public List<Animal> getAnimais() {
+        return animais;
+    }
+
+    /**
+     * @param animais the animais to set
+     */
+    public void setAnimais(List<Animal> animais) {
+        this.animais = animais;
+    }
 }

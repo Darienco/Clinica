@@ -79,13 +79,13 @@ public class ProprietarioMB {
     }
  
     public void limpar() {
-    System.out.println("Limpar");
-    System.out.println(prop);
-    prop = new Proprietario();
+        System.out.println("Limpar");
+        System.out.println(prop);
+        prop = new Proprietario();
     }
  
     public void listar() {
-    System.out.println("Listar Proprietário");
+        System.out.println("Listar Proprietário");
         lista = dao.listarTodos();
     }
  

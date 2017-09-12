@@ -4,13 +4,14 @@
     <class>modelo.Medico</class>
     <class>modelo.Proprietario</class>
     <class>modelo.Funcionario</class>
+    <class>modelo.Animal</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Clinica"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.jdbc.password" value="@Postgre11623351"/>           
       <!-- MUDAR A SENHA DO BANCO PARA REALIZAR OS TESTES -->
-      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
       <property name="eclipselink.ddl-generation.output-mode" value="database"/>
     </properties>
   </persistence-unit>
