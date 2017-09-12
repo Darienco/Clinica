@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/juano/Documents/Clinica/web/cadAnimal.xhtml</file>
             <file>file:/C:/Users/juano/Documents/Clinica/src/java/modelo/Animal.java</file>
+            <file>file:/C:/Users/juano/Documents/Clinica/test/dao/AnimalDaoTest.java</file>
+            <file>file:/C:/Users/juano/Documents/Clinica/src/java/modelo/Proprietario.java</file>
+            <file>file:/C:/Users/juano/Documents/Clinica/src/java/dao/ProprietarioDao.java</file>
+            <file>file:/C:/Users/juano/Documents/Clinica/test/dao/ProprietarioDaoTest.java</file>
             <file>file:/C:/Users/juano/Documents/Clinica/src/java/META-INF/persistence.xml</file>
         </group>
     </open-files>
