@@ -19,7 +19,7 @@ public class Funcionario implements Serializable {
     private Integer IdFuncionario;
     
     @Column(length = 14, name = "CPF")
-    private Integer CPF;
+    private String CPF;
     
     @Column(length = 100, name ="Senha")
     private String Senha; 
@@ -29,7 +29,7 @@ public class Funcionario implements Serializable {
     
     public Funcionario() {
         this.IdFuncionario = 0;
-        this.CPF = 0;
+        this.CPF = "";
         this.Nome = "";
         this.Senha = "";
     }
@@ -42,11 +42,11 @@ public class Funcionario implements Serializable {
         this.IdFuncionario = IdFuncionario;
     }
 
-    public Integer getCPF() {
+    public String getCPF() {
         return CPF;
     }
 
-    public void setCPF(Integer CPF) {
+    public void setCPF(String CPF) {
         this.CPF = CPF;
     }
     

@@ -27,7 +27,12 @@ public class Animal implements Serializable {
     @Column(length = 100, name = "Raca")
     private String Raca;
     
-    private Proprietario proprietario;
+    @Column(name = "ProprietarioAnimal")
+    private Integer ProprietarioAnimal;
     
-    //proprietario
+    Proprietario prop;
+    public Animal(){
+        prop = new Proprietario();
+        ProprietarioAnimal = prop.getCodigo();
+    }
 }

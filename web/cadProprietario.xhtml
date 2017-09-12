@@ -11,6 +11,8 @@
     <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
     <h:form id="frmAluno">
 	<p:panelGrid columns="2" style="horizontal-align:center">
+            <h:outputText value="Código:" />
+            <h:inputText id="codigo" value="#{ProprietarioMB.proprietario.codigo}" />
             <h:outputText value="Nome:" />
             <h:inputText id="Nome" maxlength="150" requiredMessage="Nome obrigatório"
                 required="true" value="#{ProprietarioMB.proprietario.nome}" />
@@ -26,7 +28,7 @@
 	</p:panelGrid>
         <p:panelGrid columns="6">
             <h:commandButton action="#{ProprietarioMB.incluir}" value="Incluir" />
-            <h:commandButton action="#{ProprietarioMB.alterar}" value="alterar" />
+            <h:commandButton action="#{ProprietarioMB.alterar}" value="Alterar" />
             <h:commandButton action="#{ProprietarioMB.consultar}" value="Consultar" />
             <h:commandButton action="#{ProprietarioMB.listar}" value="Listar" />
             <h:commandButton action="#{ProprietarioMB.excluir}" value="Excluir" />

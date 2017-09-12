@@ -1,4 +1,4 @@
-package managedbean;
+package controle;
   
 import dao.ProprietarioDao;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class ProprietarioMB {
             null,
             new FacesMessage(FacesMessage.SEVERITY_INFO,
             "Manutenção de Proprietário: ",
-            "Médico alterado com sucesso!"));
+            "Proprietário alterado com sucesso!"));
     }
  
     public void consultar() {
@@ -56,7 +56,7 @@ public class ProprietarioMB {
             null,
             new FacesMessage(FacesMessage.SEVERITY_INFO,
         "Manutenção de Proprietário: ",
-        "Médico excluído com sucesso!"));
+        "Proprietário excluído com sucesso!"));
     }
  
     public Proprietario getProprietario() {

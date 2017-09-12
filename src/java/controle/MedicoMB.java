@@ -1,4 +1,4 @@
-package managedbean;
+package controle;
   
 import dao.MedicoDao;
 import java.util.ArrayList;

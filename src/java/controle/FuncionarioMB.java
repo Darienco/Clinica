@@ -1,4 +1,4 @@
-package managedbean;
+package controle;
   
 import dao.FuncionarioDao;
 import java.util.ArrayList;
