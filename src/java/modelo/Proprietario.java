@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TbProprietario")
+@Table(name = "tbProprietario")
 
 public class Proprietario implements Serializable{
     @Id
@@ -85,6 +85,14 @@ public class Proprietario implements Serializable{
         this.Telefone = Telefone;
     }
     
+    public List<Animal> getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(List<Animal> animais) {
+        this.animais = animais;
+    }
+    
     @Override
     public int hashCode(){
         int hash = 7;
@@ -103,18 +111,4 @@ public class Proprietario implements Serializable{
         }
         return true;
     }    
-
-    /**
-     * @return the animais
-     */
-    public List<Animal> getAnimais() {
-        return animais;
-    }
-
-    /**
-     * @param animais the animais to set
-     */
-    public void setAnimais(List<Animal> animais) {
-        this.animais = animais;
-    }
 }

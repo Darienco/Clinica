@@ -31,7 +31,7 @@ public class ProprietarioDao implements Serializable {
     public Proprietario buscarPorNome(String nome){
         Proprietario temp;
         manager = JpaUtil.getEntityManager();
-        String consulta = "SELECT c FROM TbProprietario c WHERE c.nome = :nome"; 
+        String consulta = "SELECT c FROM Proprietario c WHERE c.Nome = :nome";
         TypedQuery<Proprietario> query = manager.createQuery(consulta, Proprietario.class);
         query.setParameter("nome", nome);
         temp = query.getSingleResult();

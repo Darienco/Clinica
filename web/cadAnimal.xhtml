@@ -31,12 +31,12 @@
         </p:selectOneMenu>        
       </p:panelGrid>
         <p:panelGrid columns="6">
-            <h:commandButton action="#{AnimalMB.incluir}" value="Incluir"       />
-            <h:commandButton action="#{AnimalMB.alterar}" value="Alterar"       />
-            <h:commandButton action="#{AnimalMB.consultar}" value="Consultar"   />
-            <h:commandButton action="#{AnimalMB.listar}" value="Listar"         />
-            <h:commandButton action="#{AnimalMB.excluir}" value="Excluir"       />
-            <h:commandButton action="#{AnimalMB.limpar}" value="Limpar"         />
+            <h:commandButton action="#{AnimalMB.incluir}" value="Incluir" />
+            <h:commandButton action="#{AnimalMB.alterar}" value="Alterar" />
+            <h:commandButton action="#{AnimalMB.consultar}" value="Consultar" />
+            <h:commandButton action="#{AnimalMB.listar}" value="Listar" />
+            <h:commandButton action="#{AnimalMB.excluir}" value="Excluir" />
+            <h:commandButton action="#{AnimalMB.limpar}" value="Limpar" />
 	</p:panelGrid>
     </h:form>
 	<p:dataTable id="tabela" var="item" value="#{AnimalMB.lista}"
@@ -54,10 +54,10 @@
             <p:column headerText="Raça" style="width: 25%;" sortBy="#{item.raca}">
                 <h:outputText value="#{item.raca}" />
             </p:column>
-            <p:column headerText="Especie" style="width: 25%;" sortBy="#{item.especie}">
+            <p:column headerText="Espécie" style="width: 25%;" sortBy="#{item.especie}">
                 <h:outputText value="#{item.especie}" />
             </p:column>
-            <p:column headerText="proprietario" style="width: 25%;" sortBy="#{item.prop.nome}">
+            <p:column headerText="Proprietário" style="width: 25%;" sortBy="#{item.prop.nome}">
                 <h:outputText value="#{item.prop.nome}" />
             </p:column>
 	</p:dataTable>
