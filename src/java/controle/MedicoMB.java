@@ -16,15 +16,14 @@ public class MedicoMB {
     private Medico med;
     private List<Medico> lista = new ArrayList<>();
  
-    MedicoDao dao = new MedicoDao();
+    MedicoDao dao;
  
     public MedicoMB() {
         med = new Medico();
-        listar();
+        dao = new MedicoDao();
     }
  
     public void alterar() {
-	System.out.println("Alterar médico");
 	dao.alterar(med);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
@@ -36,7 +35,6 @@ public class MedicoMB {
  
     public void consultar() {
 	long codMedico = med.getCodigo();
-	System.out.println("Consultar");
 	med = dao.buscarPorCodigo((int) codMedico);
 	if (med == null || med.getCodigo()== 0) {
             FacesContext.getCurrentInstance().addMessage(
@@ -49,7 +47,6 @@ public class MedicoMB {
     }
  
     public void excluir() {
-        System.out.println("Excluir médico");
 	dao.excluir(med);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
@@ -68,7 +65,6 @@ public class MedicoMB {
     }
  
     public void incluir() {
-	System.out.println("Incluir médico");
 	dao.inserir(med);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
@@ -79,13 +75,10 @@ public class MedicoMB {
     }
  
     public void limpar() {
-	System.out.println("Limpar");
-	System.out.println(med);
 	med = new Medico();
     }
  
     public void listar() {
-	System.out.println("Listar médico");
         lista = dao.listarTodos();
     }
  

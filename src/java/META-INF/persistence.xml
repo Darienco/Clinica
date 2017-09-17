@@ -5,6 +5,7 @@
     <class>modelo.Proprietario</class>
     <class>modelo.Funcionario</class>
     <class>modelo.Animal</class>
+    <class>modelo.Atendimento</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Clinica"/>

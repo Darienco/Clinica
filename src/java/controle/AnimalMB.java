@@ -30,7 +30,6 @@ public class AnimalMB implements Serializable {
         anml = new Animal();
         proprietarios = propDao.listarTodos();
         proprietarioSelecionado = new Proprietario();
-        //listar();
     }
     
     public void alterar() {
@@ -90,13 +89,10 @@ public class AnimalMB implements Serializable {
     }
  
     public void limpar() {
-	System.out.println("Limpar");
-	System.out.println(getAnml());
 	setAnml(new Animal());
     }
  
     public void listar() {
-	System.out.println("Listar animal");
         lista = getDao().listarTodos();
     }
  
@@ -124,58 +120,18 @@ public class AnimalMB implements Serializable {
         this.proprietarios = proprietarios;
     }
 
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-
-    /**
-     * @return the dao
-     */
     public AnimalDao getDao() {
         return dao;
     }
 
-    /**
-     * @param dao the dao to set
-     */
     public void setDao(AnimalDao dao) {
         this.dao = dao;
     }
 
-    /**
-     * @return the propDao
-     */
-    public ProprietarioDao getPropDao() {
-        return propDao;
-    }
-
-    /**
-     * @param propDao the propDao to set
-     */
-    public void setPropDao(ProprietarioDao propDao) {
-        this.propDao = propDao;
-    }
-
-    /**
-     * @return the anml
-     */
     public Animal getAnml() {
         return anml;
     }
 
-    /**
-     * @param anml the anml to set
-     */
     public void setAnml(Animal anml) {
         this.anml = anml;
     }
