@@ -18,14 +18,14 @@ public class AnimalMB implements Serializable {
     private static long serialVersionUID = 8103328274400432976L;
     private Animal anml;
     private List<Animal> lista;
-    private AnimalDao dao;
+    private AnimalDao anmlDao;
     private ProprietarioDao propDao;
     private Proprietario proprietarioSelecionado;
     private List<Proprietario> proprietarios;
     
     public AnimalMB(){
         propDao = new ProprietarioDao();
-        dao = new AnimalDao();
+        anmlDao = new AnimalDao();
         lista = new ArrayList<>();
         anml = new Animal();
         proprietarios = propDao.listarTodos();
@@ -33,8 +33,7 @@ public class AnimalMB implements Serializable {
     }
     
     public void alterar() {
-	System.out.println("Alterar animal");
-	getDao().alterar(getAnml());
+	anmlDao.alterar(getAnml());
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
             null,
@@ -45,8 +44,7 @@ public class AnimalMB implements Serializable {
  
     public void consultar() {
 	long codAnml = getAnml().getCodigo();
-	System.out.println("Consultar");
-	setAnml(getDao().buscarPorCodigo((int) codAnml));
+	setAnml(anmlDao.buscarPorCodigo((int) codAnml));
 	if (getAnml() == null || getAnml().getCodigo()== 0) {
             FacesContext.getCurrentInstance().addMessage(
             null,
@@ -58,8 +56,7 @@ public class AnimalMB implements Serializable {
     }
  
     public void excluir() {
-        System.out.println("Excluir animal");
-	getDao().excluir(getAnml());
+	anmlDao.excluir(getAnml());
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
             null,
@@ -77,9 +74,8 @@ public class AnimalMB implements Serializable {
     }
  
     public void incluir() {
-	System.out.println("Incluir animal"+proprietarioSelecionado.getNome());
         getAnml().setProp(proprietarioSelecionado);
-	getDao().inserir(getAnml());
+	anmlDao.inserir(getAnml());
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
             null,
@@ -93,7 +89,7 @@ public class AnimalMB implements Serializable {
     }
  
     public void listar() {
-        lista = getDao().listarTodos();
+        lista = anmlDao.listarTodos();
     }
  
     public void setFuncionario(Animal anml) {
@@ -118,14 +114,6 @@ public class AnimalMB implements Serializable {
 
     public void setProprietarios(List<Proprietario> proprietarios) {
         this.proprietarios = proprietarios;
-    }
-
-    public AnimalDao getDao() {
-        return dao;
-    }
-
-    public void setDao(AnimalDao dao) {
-        this.dao = dao;
     }
 
     public Animal getAnml() {

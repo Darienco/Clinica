@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <title>Cadastro de Atendimento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </h:head>
+  <h:body>
+    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
+    <h:form id="frmAtendimento">
+      <p:panelGrid columns="2" style="horizontal-align:center">
+        <h:outputText value="Código:" />
+        <h:inputText id="codigo" value="#{AtendimentoMB.atendimento.codigo}" />
+        <h:outputLabel value="Animal:" />
+        <p:selectOneMenu id="comboAnimal" converter="animalConverter"
+            value="#{AtendimentoMB.animalSelecionado}"            
+            required="true" requiredMessage="Selecione um animal" >
+        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
+        <f:selectItems value="#{AtendimentoMB.animais}" var="item" 
+                       itemValue="#{item}" itemLabel="#{item.nome}"/>  
+        </p:selectOneMenu>  
+	<h:outputLabel value="Anotações:" />
+        <h:inputText id="Anotacoes" value="#{AtendimentoMB.atendimento.anotacoes}" />        
+        <h:outputLabel value="Data:" />
+        <p:calendar id="Data" value="#{AtendimentoMB.atendimento.data}" pattern="dd/MM/yyyy"
+                    locale="pt"/>        
+        <h:outputLabel value="Valor:" />
+        <h:inputText id="Valor" value="#{AtendimentoMB.atendimento.valor}" />                
+      </p:panelGrid>
+        <p:panelGrid columns="6">
+            <h:commandButton action="#{AtendimentoMB.incluir}" value="Incluir" />
+            <h:commandButton action="#{AtendimentoMB.alterar}" value="Alterar" />
+            <h:commandButton action="#{AtendimentoMB.consultar}" value="Consultar" />
+            <h:commandButton action="#{AtendimentoMB.listar}" value="Listar" />
+            <h:commandButton action="#{AtendimentoMB.excluir}" value="Excluir" />
+            <h:commandButton action="#{AtendimentoMB.limpar}" value="Limpar" />
+	</p:panelGrid>
+    </h:form>
+	<p:dataTable id="tabela" var="item" value="#{AtendimentoMB.lista}"
+            paginator="true" rows="50" emptyMessage="Não há registros na lista"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="10,15,25,50,100">
+            <f:facet name="header">Lista de Atendimentos</f:facet>
+            <p:column headerText="Código" style="width: 10%;"
+                      sortBy="#{item.codigo}">
+                <h:outputText value="#{item.codigo}" />
+            </p:column>
+            <p:column headerText="Animal" style="width: 25%;" sortBy="#{item.nome}">	
+                <h:outputText value="#{item.animal.nome}" />
+            </p:column>
+            <p:column headerText="Anotações" style="width: 25%;" sortBy="#{item.raca}">
+                <h:outputText value="#{item.anotacoes}" />
+            </p:column>
+            <p:column headerText="Data" style="width: 25%;" sortBy="#{item.especie}">
+                <h:outputText value="#{item.data}" />
+            </p:column>
+            <p:column headerText="Valor" style="width: 25%;" sortBy="#{item.prop.nome}">
+                <h:outputText value="#{item.valor}" />
+            </p:column>
+	</p:dataTable>
+</h:body>
+</html>

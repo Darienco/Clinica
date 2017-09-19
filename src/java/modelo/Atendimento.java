@@ -25,18 +25,19 @@ public class Atendimento implements Serializable {
     @JoinColumn(name = "animal", referencedColumnName = "IdAnimal")
     private Animal animal;
     
-    @Column(name = "Anotacoes")
+    @Column(length = 500, name = "Anotacoes")
     private String Anotacoes;
     
     @Column(name = "Data")
     private Date Data;
     
     @Column(name = "Valor")
-    private Float Valor;
+    private Double Valor;
     
     public Atendimento(){        
         this.IdAtendimento = 0;
         this.Anotacoes = "";
+        this.Valor = 0.0;
         this.animal = new Animal();
     }    
 
@@ -72,11 +73,11 @@ public class Atendimento implements Serializable {
         this.Data = Data;
     }
 
-    public Float getValor() {
+    public Double getValor() {
         return Valor;
     }
 
-    public void setValor(Float Valor) {
+    public void setValor(Double Valor) {
         this.Valor = Valor;
     }
     

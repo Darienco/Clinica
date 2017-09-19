@@ -1,5 +1,6 @@
 package controle;
 
+import dao.AnimalDao;
 import dao.AtendimentoDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import modelo.Animal;
 import modelo.Atendimento;
 
 @ManagedBean(name="AtendimentoMB")
@@ -14,13 +16,19 @@ import modelo.Atendimento;
 public class AtendimentoMB {
     private static final long serialVersionUID = 8103328274400432976L;
     private Atendimento atndmnto;
-    private List<Atendimento> lista = new ArrayList<>();
- 
-    AtendimentoDao dao;
+    private List<Atendimento> lista;
+    private AtendimentoDao dao;
+    private AnimalDao anmlDao;
+    private Animal animalSelecionado;
+    private List<Animal> animais;
 
     public AtendimentoMB() {
         atndmnto = new Atendimento();
         dao = new AtendimentoDao();
+        anmlDao = new AnimalDao();
+        lista = new ArrayList<>();
+        animais = anmlDao.listarTodos();
+        animalSelecionado = new Animal();
     }
     
     public void alterar() {
@@ -65,6 +73,7 @@ public class AtendimentoMB {
     }
  
     public void incluir() {
+        atndmnto.setAnimal(getAnimalSelecionado());
 	dao.inserir(atndmnto);
 	listar();
 	FacesContext.getCurrentInstance().addMessage(
@@ -89,4 +98,20 @@ public class AtendimentoMB {
     public void setLista(List<Atendimento> lista) {
         this.lista = lista;
     }    
+
+    public Animal getAnimalSelecionado() {
+        return animalSelecionado;
+    }
+
+    public void setAnimalSelecionado(Animal animalSelecionado) {
+        this.animalSelecionado = animalSelecionado;
+    }
+
+    public List<Animal> getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(List<Animal> animais) {
+        this.animais = animais;
+    }
 }

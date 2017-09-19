@@ -4,44 +4,44 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
   <h:head>
-      <title>Cadastro de Médico</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Cadastro de Médico</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>	
   </h:head>
   <h:body>
-    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
-    <h:form id="frmAluno">
-	<p:panelGrid columns="2" style="horizontal-align:center">
-            <h:outputText value="Código:" />
-            <h:inputText id="codigo" value="#{MedicoMB.medico.codigo}" />
-            <h:outputLabel for="nome" value="Nome:" />
-            <h:inputText id="nome" value="#{MedicoMB.medico.nome}" />
-	    <h:outputLabel value="CRMV:" />
-            <h:inputText id="CRMV" value="#{MedicoMB.medico.CRMV}" />
-	</p:panelGrid>
+	  <p:growl  id="mensagem" showDetail="true" autoUpdate="true" />
+      <h:form id="frmAluno">
+	    <p:panelGrid columns="2" style="horizontal-align:center">
+          <h:outputText value="Código:" />
+          <h:inputText id="codigo" value="#{MedicoMB.medico.codigo}" />
+          <h:outputLabel for="nome" value="Nome:" />
+          <h:inputText id="nome" value="#{MedicoMB.medico.nome}" />
+	      <h:outputLabel value="CRMV:" />
+          <h:inputText id="CRMV" value="#{MedicoMB.medico.CRMV}" />
+	    </p:panelGrid>
         <p:panelGrid columns="6">
-            <h:commandButton action="#{MedicoMB.incluir}" value="Incluir"       />
-            <h:commandButton action="#{MedicoMB.alterar}" value="Alterar"       />
-            <h:commandButton action="#{MedicoMB.consultar}" value="Consultar"   />
-            <h:commandButton action="#{MedicoMB.listar}" value="Listar"         />
-            <h:commandButton action="#{MedicoMB.excluir}" value="Excluir"       />
-            <h:commandButton action="#{MedicoMB.limpar}" value="Limpar"         />
-	</p:panelGrid>
-    </h:form>
-	<p:dataTable id="tabela" var="item" value="#{MedicoMB.lista}"
+          <h:commandButton action="#{MedicoMB.incluir}" value="Incluir" />
+          <h:commandButton action="#{MedicoMB.alterar}" value="Alterar" />
+          <h:commandButton action="#{MedicoMB.consultar}" value="Consultar" />
+          <h:commandButton action="#{MedicoMB.listar}" value="Listar" />
+          <h:commandButton action="#{MedicoMB.excluir}" value="Excluir" />
+          <h:commandButton action="#{MedicoMB.limpar}" value="Limpar" />
+	    </p:panelGrid>
+      </h:form>
+	  <p:dataTable id="tabela" var="item" value="#{MedicoMB.lista}"
             paginator="true" rows="50" emptyMessage="Não há registros na lista"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
             rowsPerPageTemplate="10,15,25,50,100">
-            <f:facet name="header">Lista de Médicos</f:facet>
-            <p:column headerText="Código" style="width: 10%;"
-                      sortBy="#{item.codigo}">
-                <h:outputText value="#{item.codigo}" />
-            </p:column>
-            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
-                <h:outputText value="#{item.nome}" />
-            </p:column>
-            <p:column headerText="CRMV" style="width: 25%;" sortBy="#{item.CRMV}">
-                <h:outputText value="#{item.CRMV}" />
-            </p:column>
-	</p:dataTable>
-</h:body>
+        <f:facet name="header">Lista de Médicos</f:facet>
+        <p:column headerText="Código" style="width: 10%;"
+            sortBy="#{item.codigo}">
+          <h:outputText value="#{item.codigo}" />
+        </p:column>
+        <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
+          <h:outputText value="#{item.nome}" />
+        </p:column>
+        <p:column headerText="CRMV" style="width: 25%;" sortBy="#{item.CRMV}">
+          <h:outputText value="#{item.CRMV}" />
+        </p:column>
+	  </p:dataTable>
+  </h:body>
 </html>

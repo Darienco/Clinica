@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import modelo.Animal;
 import util.JpaUtil;
@@ -25,6 +26,17 @@ public class AnimalDao implements Serializable {
         Animal func = manager.find(Animal.class, cod);
         manager.close();
         return func;
+    }
+    
+    public Animal buscarPorNome(String nome){
+        Animal temp;
+        manager = JpaUtil.getEntityManager();
+        String consulta = "SELECT c FROM Animal c WHERE c.Nome = :nome";
+        TypedQuery<Animal> query = manager.createQuery(consulta, Animal.class);
+        query.setParameter("nome", nome);
+        temp = query.getSingleResult();
+        manager.close();
+        return temp;
     }
         
     public boolean excluir(Animal anml){
