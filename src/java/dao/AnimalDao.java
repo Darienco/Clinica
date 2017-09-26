@@ -11,7 +11,6 @@ import util.JpaUtil;
 
 public class AnimalDao implements Serializable {
     EntityManager manager;
-    
     public boolean alterar(Animal anml){
         manager = JpaUtil.getEntityManager();
         manager.getTransaction().begin();
@@ -20,14 +19,12 @@ public class AnimalDao implements Serializable {
         manager.close();
         return true;
     }
-    
     public Animal buscarPorCodigo(int cod){
         manager = JpaUtil.getEntityManager();
         Animal func = manager.find(Animal.class, cod);
         manager.close();
         return func;
     }
-    
     public Animal buscarPorNome(String nome){
         Animal temp;
         manager = JpaUtil.getEntityManager();
@@ -38,19 +35,16 @@ public class AnimalDao implements Serializable {
         manager.close();
         return temp;
     }
-        
     public boolean excluir(Animal anml){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 
         tx.begin();
-        // recupera a referência ao objeto
         Animal temp = manager.find(Animal.class, anml.getCodigo());
         manager.remove(temp);
         tx.commit();
         manager.close();
         return true;
     }
-    
     public boolean inserir(Animal anml){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
@@ -60,7 +54,6 @@ public class AnimalDao implements Serializable {
         manager.close();
         return true;
     }
-    
     public List<Animal> listarTodos(){
         manager = JpaUtil.getEntityManager();
         CriteriaQuery<Animal> query = manager.getCriteriaBuilder().createQuery(Animal.class);

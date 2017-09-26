@@ -1,5 +1,4 @@
-* {
-  box-sizing: border-box; }
+* { box-sizing: border-box; }
 
 body {
   padding: 0;
@@ -56,7 +55,7 @@ a {
   background-image: linear-gradient(120deg, #155799, #159957); }
   @media screen and (min-width: 64em) {
     .page-header {
-      padding: 5rem 6rem; } }
+      padding: 4rem 6rem 3rem; } }
   @media screen and (min-width: 42em) and (max-width: 64em) {
     .page-header {
       padding: 3rem 4rem; } }
@@ -77,28 +76,14 @@ a {
     .project-name {
       font-size: 1.75rem; } }
 
-.project-tagline {
-  margin-bottom: 2rem;
-  font-weight: normal;
-  opacity: 0.7; }
-  @media screen and (min-width: 64em) {
-    .project-tagline {
-      font-size: 1.25rem; } }
-  @media screen and (min-width: 42em) and (max-width: 64em) {
-    .project-tagline {
-      font-size: 1.15rem; } }
-  @media screen and (max-width: 42em) {
-    .project-tagline {
-      font-size: 1rem; } }
-
 .main-content {
   word-wrap: break-word; }
   .main-content :first-child {
     margin-top: 0; }
   @media screen and (min-width: 64em) {
     .main-content {
-      max-width: 64rem;
-      padding: 2rem 6rem;
+      max-width: 98%;
+      padding: 2rem;
       margin: 0 auto;
       font-size: 1.1rem; } }
   @media screen and (min-width: 42em) and (max-width: 64em) {
@@ -117,10 +102,10 @@ a {
   .main-content h4,
   .main-content h5,
   .main-content h6 {
-    margin-top: 2rem;
+    margin-top: 1px;
     margin-bottom: 1rem;
     font-weight: normal;
-    color: #159957; }
+    color: #333333; }
   .main-content p {
     margin-bottom: 1em; }
   .main-content code {
@@ -218,11 +203,8 @@ a {
     margin: 1rem 0;
     background-color: #eff0f1;
     border: 0; }
-
 .site-footer {
-  padding-top: 2rem;
-  margin-top: 2rem;
-  border-top: solid 1px #eff0f1; }
+  margin-top: 10px;}
   @media screen and (min-width: 64em) {
     .site-footer {
       font-size: 1rem; } }
@@ -232,10 +214,15 @@ a {
   @media screen and (max-width: 42em) {
     .site-footer {
       font-size: 0.9rem; } }
-
 .site-footer-owner {
   display: block;
-  font-weight: bold; }
-
-.site-footer-credits {
-  color: #819198; }
+  font-weight: bold;
+  color: #333333; 
+  text-align: center; }
+.dark-grey {
+  color: #333333;
+  margin-bottom: 1rem; 
+  text-align:center; }
+.save-btn {
+  margin-bottom: 1rem; 
+  margin-right: 1rem; }

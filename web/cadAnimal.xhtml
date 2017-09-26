@@ -4,62 +4,116 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
   <h:head>
+    <meta charset="UTF-8"/>
     <title>Cadastro de Animal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/cayman.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>	
   </h:head>
   <h:body>
-    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
-    <h:form id="frmAnimal">
-      <p:panelGrid columns="2" style="horizontal-align:center">
-        <h:outputText value="Código:" />
-        <h:inputText id="codigo" value="#{AnimalMB.animal.codigo}" />
-        <h:outputLabel for="nome" value="Nome:" />
-        <h:inputText id="nome" value="#{AnimalMB.animal.nome}" />
-	<h:outputLabel value="Raça:" />
-        <h:inputText id="Raca" value="#{AnimalMB.animal.raca}" />
-        <h:outputLabel value="Especie:" />
-        <h:inputText id="Especie" value="#{AnimalMB.animal.especie}" />
-        <h:outputLabel value="Proprietário:" />
-        
-        <p:selectOneMenu id="comboProprietario" 
+    <section class="page-header">
+      <h1 class="project-name">Sistema Clínica Veterinária</h1> <br/>
+      <h:link class="btn" outcome="cadMedico" value="Cadastro de Médico"/>
+      <h:link class="btn" outcome="cadProprietario" value="Cadastro de Proprietário"/>    
+      <h:link class="btn" outcome="cadFuncionario" value="Cadastro de Funcionário"/>
+      <h:link class="btn" outcome="cadAnimal" value="Cadastro de Animal"/>
+      <h:link class="btn" outcome="cadAtendimento" value="Atendimentos"/>
+    </section>
+    <section class="main-content">
+      <p:growl  id="mensagem" showDetail="true" autoUpdate="true" />
+      <h:form id="frmCad">
+        <h2>Cadastro de Animais</h2>
+	<h:panelGrid class="dark-grey" columns="2">   
+          <h:outputText value="Código:" />
+          <h:inputText id="codigo" value="#{AnimalMB.animal.codigo}" />
+          <h:outputLabel for="nome" value="Nome:" />
+          <h:inputText id="nome" value="#{AnimalMB.animal.nome}" />
+	  <h:outputLabel value="Raça:" />
+          <h:inputText id="Raca" value="#{AnimalMB.animal.raca}" />
+          <h:outputLabel value="Especie:" />
+          <h:inputText id="Especie" value="#{AnimalMB.animal.especie}" />
+          <h:outputLabel value="Proprietário:" />
+          <p:selectOneMenu id="comboProprietario" 
             value="#{AnimalMB.proprietarioSelecionado}"
-            converter="proprietarioConverter"
-            required="true" requiredMessage="Selecione um proprietario" >
-        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
-        <f:selectItems value="#{AnimalMB.proprietarios}" var="item" 
+            converter="proprietarioConverter" required="true"
+            requiredMessage="Selecione um proprietário" >
+          <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
+          <f:selectItems value="#{AnimalMB.proprietarios}" var="item" 
                     itemValue="#{item}" itemLabel="#{item.nome}"/>  
-        </p:selectOneMenu>        
-      </p:panelGrid>
-        <p:panelGrid columns="6">
-            <h:commandButton action="#{AnimalMB.incluir}" value="Incluir" />
-            <h:commandButton action="#{AnimalMB.alterar}" value="Alterar" />
-            <h:commandButton action="#{AnimalMB.consultar}" value="Consultar" />
-            <h:commandButton action="#{AnimalMB.listar}" value="Listar" />
-            <h:commandButton action="#{AnimalMB.excluir}" value="Excluir" />
-            <h:commandButton action="#{AnimalMB.limpar}" value="Limpar" />
-	</p:panelGrid>
-    </h:form>
-	<p:dataTable id="tabela" var="item" value="#{AnimalMB.lista}"
+          </p:selectOneMenu>        
+        </h:panelGrid>
+        <p:commandButton value="Salvar" action="#{AnimalMB.incluir()}"
+                             update="frmCad, :frmTable" />  
+        <p:commandButton action="#{AnimalMB.consultar()}" value="Consultar" />
+      </h:form>
+      <h:form id="frmTable">
+	<p:dataTable id="tabela" var="animal" value="#{AnimalMB.lista}"
             paginator="true" rows="50" emptyMessage="Não há registros na lista"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
             rowsPerPageTemplate="10,15,25,50,100">
-            <f:facet name="header">Lista de Animais</f:facet>
-            <p:column headerText="Código" style="width: 10%;"
-                      sortBy="#{item.codigo}">
-                <h:outputText value="#{item.codigo}" />
-            </p:column>
-            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
-                <h:outputText value="#{item.nome}" />
-            </p:column>
-            <p:column headerText="Raça" style="width: 25%;" sortBy="#{item.raca}">
-                <h:outputText value="#{item.raca}" />
-            </p:column>
-            <p:column headerText="Espécie" style="width: 25%;" sortBy="#{item.especie}">
-                <h:outputText value="#{item.especie}" />
-            </p:column>
-            <p:column headerText="Proprietário" style="width: 25%;" sortBy="#{item.prop.nome}">
-                <h:outputText value="#{item.prop.nome}" />
-            </p:column>
+          <f:facet name="header">Lista de Animais</f:facet>
+          <p:column headerText="Código" style="width: 10%;" sortBy="#{animal.codigo}">
+            <h:outputText value="#{animal.codigo}" />
+          </p:column>
+          <p:column headerText="Nome" style="width: 25%;" sortBy="#{animal.nome}">	
+            <h:outputText value="#{animal.nome}" />
+          </p:column>
+          <p:column headerText="Raça" style="width: 25%;" sortBy="#{animal.raca}">
+            <h:outputText value="#{animal.raca}" />
+          </p:column>
+          <p:column headerText="Espécie" style="width: 25%;" sortBy="#{animal.especie}">
+            <h:outputText value="#{animal.especie}" />
+          </p:column>
+          <p:column headerText="Proprietário" style="width: 25%;" sortBy="#{animal.prop.nome}">
+            <h:outputText value="#{animal.prop.nome}" />
+          </p:column>
+          <p:column headerText="">
+            <p:commandButton value="Excluir" actionListener="#{AnimalMB.excluir(animal)}" update=":frmTable">
+              <p:confirm header="Excluir animal" message="Tem certeza que deseja excluir este animal?" />
+            </p:commandButton>
+          </p:column>
+          <p:column headerText="">
+            <p:commandButton value="Editar" action="#{AnimalMB.preparaAlterar(animal)}" onclick="PF('editarDialog').show()" update=":formAltera"/>
+          </p:column>
 	</p:dataTable>
-</h:body>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+          <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+          </p:outputPanel>
+        </p:confirmDialog>
+      </h:form>
+      <p:dialog id="editarDialog" widgetVar="editarDialog" modal="true" header="Alteração de animal">   
+            <h:form id="formAltera">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Código:"/>
+                    <p:inputText id="codigo" disabled="true" 
+                                 value="#{AnimalMB.animal.codigo}"/>                       
+                    <h:outputLabel value="Nome:"/>
+                    <p:inputText value="#{AnimalMB.aux.nome}"
+                        required="true" requiredMessage="Nome obrigatório"/>
+                    <h:outputLabel value="Raça:"/>
+                    <p:inputText value="#{AnimalMB.aux.raca}" />
+                    <h:outputLabel value="Espécie:"/>
+                    <p:inputText value="#{AnimalMB.aux.especie}"/>
+                    <h:outputLabel value="Proprietário: "/>
+                    <p:selectOneMenu id="comboProprietario" 
+                                     value="#{AnimalMB.aux.prop}"
+                        converter="proprietarioConverter" required="true"
+                        requiredMessage="Selecione um proprietário" >
+                      <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
+                      <f:selectItems value="#{AnimalMB.proprietarios}" var="item" 
+                                itemValue="#{item}" itemLabel="#{item.nome}"/>  
+                    </p:selectOneMenu>   
+                </h:panelGrid>
+                <p:outputPanel style="width: 100%; text-align:center" > <br/>
+                    <p:commandButton value="Continuar" ajax="false"
+                        action="#{AnimalMB.alterar()}" 
+                        styleClass="ui-state-hover"/> 
+                </p:outputPanel>
+            </h:form>
+        </p:dialog>
+    </section>
+  </h:body>
 </html>

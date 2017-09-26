@@ -1,9 +1,8 @@
-package controle;
+    package controle;
 
 import dao.AnimalDao;
 import dao.ProprietarioDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,110 +16,87 @@ import modelo.Proprietario;
 public class AnimalMB implements Serializable {
     private static long serialVersionUID = 8103328274400432976L;
     private Animal anml;
+    private Animal aux;
     private List<Animal> lista;
     private AnimalDao anmlDao;
     private ProprietarioDao propDao;
     private Proprietario proprietarioSelecionado;
     private List<Proprietario> proprietarios;
-    
     public AnimalMB(){
         propDao = new ProprietarioDao();
         anmlDao = new AnimalDao();
-        lista = new ArrayList<>();
+        lista = anmlDao.listarTodos();
         anml = new Animal();
         proprietarios = propDao.listarTodos();
         proprietarioSelecionado = new Proprietario();
     }
-    
+    public void preparaAlterar(Animal anml){
+        setAux(anml);
+    }
     public void alterar() {
-	anmlDao.alterar(getAnml());
-	listar();
-	FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Manutenção de animal: ",
+	anmlDao.alterar(getAux());
+	FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
 		"Animal alterado com sucesso!"));
     }
- 
-    public void consultar() {
-	long codAnml = getAnml().getCodigo();
-	setAnml(anmlDao.buscarPorCodigo((int) codAnml));
-	if (getAnml() == null || getAnml().getCodigo()== 0) {
-            FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		"Manutenção de animal: ",
+    public void consultarPorCodigo() {
+	long codAnml = anml.getCodigo();
+	anml = anmlDao.buscarPorCodigo((int) codAnml);
+	if (anml == null || anml.getCodigo()== 0) {
+            FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Consulta",
 		"Animal não encontrado, código:" + codAnml + "!"));
-	}
-	listar();
-    }
- 
-    public void excluir() {
-	anmlDao.excluir(getAnml());
-	listar();
-	FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-		"Manutenção de animal: ",
+	} listar();
+    } 
+    public void excluir(Animal anml) {
+	anmlDao.excluir(anml);
+	FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Exclusão",
 		"Animal excluído com sucesso!"));
+        lista.remove(anml);
+        listar();
     }
- 
-    public Animal getAnimal() {
-        return getAnml();
-    }
- 
-    public List<Animal> getLista() {
-	return lista;
-    }
- 
     public void incluir() {
-        getAnml().setProp(proprietarioSelecionado);
-	anmlDao.inserir(getAnml());
-	listar();
-	FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-		"Manutenção de animal: ",
-		"Animal incluido com sucesso!"));
+        anml.setProp(proprietarioSelecionado);
+	anmlDao.inserir(anml);
+	FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro",
+		"Animal incluído com sucesso!"));
+        lista.add(anml);
+        limpar();
+        listar();
     }
- 
     public void limpar() {
-	setAnml(new Animal());
+	anml = new Animal();
     }
- 
     public void listar() {
         lista = anmlDao.listarTodos();
     }
- 
-    public void setFuncionario(Animal anml) {
-        this.setAnml(anml);
+    public Animal getAnimal() {
+        return anml;
     }
- 
+    public List<Animal> getLista() {
+	return lista;
+    }
     public void setLista(List<Animal> lista) {
         this.lista = lista;
     }
-
     public Proprietario getProprietarioSelecionado() {
         return proprietarioSelecionado;
     }
-
     public void setProprietarioSelecionado(Proprietario proprietarioSelecionado) {
         this.proprietarioSelecionado = proprietarioSelecionado;
     }
-    
     public List<Proprietario> getProprietarios() {
         return proprietarios;
     }
-
     public void setProprietarios(List<Proprietario> proprietarios) {
         this.proprietarios = proprietarios;
     }
-
-    public Animal getAnml() {
-        return anml;
+    public Animal getAux() {
+        return aux;
     }
-
-    public void setAnml(Animal anml) {
-        this.anml = anml;
+    public void setAux(Animal aux) {
+        this.aux = aux;
     }
 }

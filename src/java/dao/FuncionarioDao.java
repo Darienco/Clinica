@@ -4,12 +4,30 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import modelo.Funcionario;
 import util.JpaUtil;
 
 public class FuncionarioDao implements Serializable {
     EntityManager manager;
+    
+    public Funcionario autenticar(Funcionario func) {
+        Funcionario temp = null; // administrador retornado na consulta ao banco
+        manager = JpaUtil.getEntityManager();
+        TypedQuery<Funcionario> query = manager.createQuery("SELECT f FROM Funcionario f WHERE f.CPF = :CPF AND f.Senha = :Senha",
+                Funcionario.class); 
+        query.setParameter("CPF", func.getCPF());
+        query.setParameter("Senha", func.getSenha());
+        try {
+            temp = query.getSingleResult(); 
+        }
+        catch(Exception e){ }    
+        finally {
+            manager.close();
+        }        
+        return temp;
+    }
     
     public boolean alterar(Funcionario func){
         manager = JpaUtil.getEntityManager();

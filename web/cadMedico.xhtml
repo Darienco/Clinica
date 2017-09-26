@@ -4,44 +4,105 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
   <h:head>
-	<title>Cadastro de Médico</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>	
+    <meta charset="UTF-8"/>
+    <title>Cadastro de Médico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/cayman.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>	
   </h:head>
   <h:body>
-	  <p:growl  id="mensagem" showDetail="true" autoUpdate="true" />
-      <h:form id="frmAluno">
-	    <p:panelGrid columns="2" style="horizontal-align:center">
-          <h:outputText value="Código:" />
-          <h:inputText id="codigo" value="#{MedicoMB.medico.codigo}" />
+    <section class="page-header">
+      <h1 class="project-name">Sistema Clínica Veterinária</h1> <br/>
+      <h:link class="btn" outcome="cadMedico" value="Cadastro de Médico"/>
+      <h:link class="btn" outcome="cadProprietario" value="Cadastro de Proprietário"/>    
+      <h:link class="btn" outcome="cadFuncionario" value="Cadastro de Funcionário"/>
+      <h:link class="btn" outcome="cadAnimal" value="Cadastro de Animal"/>
+      <h:link class="btn" outcome="cadAtendimento" value="Atendimentos"/>
+    </section>
+    <section class="main-content">
+      <p:growl  id="mensagem" showDetail="true" autoUpdate="true" />
+      <h:form id="frmCad">
+        <h2>Cadastro de Médicos</h2>
+	<h:panelGrid class="dark-grey" columns="2">          
           <h:outputLabel for="nome" value="Nome:" />
-          <h:inputText id="nome" value="#{MedicoMB.medico.nome}" />
-	      <h:outputLabel value="CRMV:" />
+          <h:inputText id="nome" value="#{MedicoMB.medico.nome}" 
+                       required="true" requiredMessage="Nome obrigatório"/>
+	  <h:outputLabel value="CRMV:" />
           <h:inputText id="CRMV" value="#{MedicoMB.medico.CRMV}" />
-	    </p:panelGrid>
-        <p:panelGrid columns="6">
-          <h:commandButton action="#{MedicoMB.incluir}" value="Incluir" />
-          <h:commandButton action="#{MedicoMB.alterar}" value="Alterar" />
-          <h:commandButton action="#{MedicoMB.consultar}" value="Consultar" />
-          <h:commandButton action="#{MedicoMB.listar}" value="Listar" />
-          <h:commandButton action="#{MedicoMB.excluir}" value="Excluir" />
-          <h:commandButton action="#{MedicoMB.limpar}" value="Limpar" />
-	    </p:panelGrid>
+	</h:panelGrid>
+        <p:commandButton class="save-btn" value="Salvar" action="#{MedicoMB.incluir()}"
+                           update="frmCad, :frmTable" />
+        <p:commandButton title="Consulta por nome" onclick="PF('consultaDialog').show()" update=":formBusca" action="#{MedicoMB.consultarPorNome()}" value="Consultar" />
       </h:form>
-	  <p:dataTable id="tabela" var="item" value="#{MedicoMB.lista}"
-            paginator="true" rows="50" emptyMessage="Não há registros na lista"
+      <h:form id="frmTable">
+	<p:dataTable id="tbMedico" var="medico" value="#{MedicoMB.lista}"
+            paginator="true" rows="50" emptyMessage="Nenhum médico cadastrado"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
             rowsPerPageTemplate="10,15,25,50,100">
-        <f:facet name="header">Lista de Médicos</f:facet>
-        <p:column headerText="Código" style="width: 10%;"
-            sortBy="#{item.codigo}">
-          <h:outputText value="#{item.codigo}" />
-        </p:column>
-        <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
-          <h:outputText value="#{item.nome}" />
-        </p:column>
-        <p:column headerText="CRMV" style="width: 25%;" sortBy="#{item.CRMV}">
-          <h:outputText value="#{item.CRMV}" />
-        </p:column>
-	  </p:dataTable>
+          <f:facet name="header">Lista de Médicos</f:facet>
+          <p:column headerText="Código" style="width: 10%;"
+            sortBy="#{medico.codigo}">
+            <h:outputText value="#{medico.codigo}" />
+          </p:column>
+          <p:column headerText="Nome" style="width: 50%;" sortBy="#{medico.nome}">	
+            <h:outputText value="#{medico.nome}" />
+          </p:column>
+          <p:column headerText="CRMV" style="width: 30%;" sortBy="#{medico.CRMV}">
+            <h:outputText value="#{medico.CRMV}" />
+          </p:column>
+          <p:column headerText="">
+            <p:commandButton value="Editar" action="#{MedicoMB.preparaAlterar(medico)}" onclick="PF('editarDialog').show()" update=":formAltera"/>
+          </p:column>
+          <p:column headerText="">
+            <p:commandButton value="Excluir" actionListener="#{MedicoMB.excluir(medico)}" update=":frmTable">
+              <p:confirm header="Excluir médico" message="Tem certeza que deseja excluir este médico?" />
+            </p:commandButton>
+          </p:column>
+	</p:dataTable>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+          <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+          </p:outputPanel>
+        </p:confirmDialog>
+      </h:form>
+      <p:dialog id="editarDialog" widgetVar="editarDialog" modal="true" header="Alteração de médico">   
+            <h:form id="formAltera">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Código: "/>
+                    <p:inputText id="codigo" disabled="true" 
+                        value="#{MedicoMB.medico.codigo}" />                       
+                    <h:outputLabel value="Nome: "/>
+                    <p:inputText value="#{MedicoMB.aux.nome}"
+                        required="true" requiredMessage="Nome obrigatório" />
+                    <h:outputLabel value="CRMV: "/>
+                    <p:inputText maxlength="50" value="#{MedicoMB.aux.CRMV}" />
+                </h:panelGrid>
+                <p:outputPanel style="width: 100%; text-align:center" > <br/>
+                    <p:commandButton value="Continuar" ajax="false"
+                        action="#{MedicoMB.alterar()}" 
+                        styleClass="ui-state-hover"/> 
+                </p:outputPanel>
+            </h:form>
+        </p:dialog>
+        <p:dialog id="consultaDialog" widgetVar="consultaDialog" modal="true" header="Consulta de médico">   
+            <h:form id="formBusca">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Código: "/>
+                    <p:inputText id="codigo" disabled="true" 
+                        value="#{MedicoMB.medico.codigo}" />                       
+                    <h:outputLabel value="Nome: "/>
+                    <p:inputText value="#{MedicoMB.aux.nome}"
+                        required="true" requiredMessage="Nome obrigatório" />
+                    <h:outputLabel value="CRMV: "/>
+                    <p:inputText maxlength="50" value="#{MedicoMB.aux.CRMV}" />
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>  <br/>
+        <footer class="site-footer">
+         <!--   <span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span> -->
+        </footer>
+    </section>
   </h:body>
 </html>

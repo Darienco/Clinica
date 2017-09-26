@@ -4,58 +4,70 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
   <h:head>
-      <title>Cadastro de Proprietario</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8"/>
+    <title>Cadastro de Proprietário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/cayman.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
   </h:head>
   <h:body>
-    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
-    <h:form id="frmAluno">
-	<p:panelGrid columns="2" style="horizontal-align:center">
-            <h:outputText value="Código:" />
-            <h:inputText id="codigo" value="#{ProprietarioMB.proprietario.codigo}" />
-            <h:outputText value="Nome:" />
-            <h:inputText id="Nome" maxlength="150" requiredMessage="Nome obrigatório"
+    <section class="page-header">
+      <h1 class="project-name">Sistema Clínica Veterinária</h1> <br/>
+      <h:link class="btn" outcome="cadMedico" value="Cadastro de Médico"/>
+      <h:link class="btn" outcome="cadProprietario" value="Cadastro de Proprietário"/>    
+      <h:link class="btn" outcome="cadFuncionario" value="Cadastro de Funcionário"/>
+      <h:link class="btn" outcome="cadAnimal" value="Cadastro de Animal"/>
+      <h:link class="btn" outcome="cadAtendimento" value="Atendimentos"/>
+    </section>
+    <section class="main-content">
+      <p:growl  id="mensagem" showDetail="true" autoUpdate="true"/>
+      <h:form id="frmCad">
+        <h2>Cadastro de Proprietário</h2>
+        <h:panelGrid class="dark-grey" columns="2">
+          <h:outputText value="Código:" />
+          <h:inputText id="codigo" value="#{ProprietarioMB.proprietario.codigo}" />
+          <h:outputText value="Nome:" />
+          <h:inputText id="Nome" maxlength="150" requiredMessage="Nome obrigatório"
                 required="true" value="#{ProprietarioMB.proprietario.nome}" />
-	    <h:outputLabel value="CPF:" />
-            <h:inputText id="CPF" maxlength="14" requiredMessage="CPF obrigatório"
+	  <h:outputLabel value="CPF:" />
+          <h:inputText id="CPF" maxlength="14" requiredMessage="CPF obrigatório"
                 required="true" value="#{ProprietarioMB.proprietario.CPF}" />
-            <h:outputLabel for="Telefone" value="Telefone:" />
-            <h:inputText id="Telefone" maxlength="20"
+          <h:outputLabel for="Telefone" value="Telefone:" />
+          <h:inputText id="Telefone" maxlength="20"
                          value="#{ProprietarioMB.proprietario.telefone}" />
-            <h:outputLabel for="Endereco" value="Endereço:" />
-            <h:inputText id="Endereco" maxlength="500"
+          <h:outputLabel for="Endereco" value="Endereço:" />
+          <h:inputText id="Endereco" maxlength="500"
                          value="#{ProprietarioMB.proprietario.endereco}" />
-	</p:panelGrid>
-        <p:panelGrid columns="6">
-            <h:commandButton action="#{ProprietarioMB.incluir}" value="Incluir" />
-            <h:commandButton action="#{ProprietarioMB.alterar}" value="Alterar" />
-            <h:commandButton action="#{ProprietarioMB.consultar}" value="Consultar" />
-            <h:commandButton action="#{ProprietarioMB.listar}" value="Listar" />
-            <h:commandButton action="#{ProprietarioMB.excluir}" value="Excluir" />
-            <h:commandButton action="#{ProprietarioMB.limpar}" value="Limpar" />
-	</p:panelGrid>
-    </h:form>
-	<p:dataTable id="tbProp" var="item" value="#{ProprietarioMB.lista}"
+        </h:panelGrid>
+        <p:commandButton value="Salvar" action="#{ProprietarioMB.incluir()}"
+                             update="frmCad, :frmTable" />  
+        <p:commandButton action="#{ProprietarioMB.consultar()}" value="Consultar" />
+      </h:form>
+      <h:form id="frmTable">
+	<p:dataTable id="tbProp" var="prop" value="#{ProprietarioMB.lista}"
             paginator="true" rows="50" emptyMessage="Não há registros na lista"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
             rowsPerPageTemplate="10,15,25,50,100">
             <f:facet name="header">Lista de Proprietários</f:facet>
             <p:column headerText="Código" style="width: 10%;"
-                      sortBy="#{item.codigo}">
-                <h:outputText value="#{item.codigo}" />
+                      sortBy="#{prop.codigo}">
+                <h:outputText value="#{prop.codigo}" />
             </p:column>
-            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
-                <h:outputText value="#{item.nome}" />
+            <p:column headerText="Nome" style="width: 25%;" sortBy="#{prop.nome}">	
+                <h:outputText value="#{prop.nome}" />
             </p:column>
-            <p:column headerText="CPF" style="width: 25%;" sortBy="#{item.CPF}">
-                <h:outputText value="#{item.CPF}" />
+            <p:column headerText="CPF" style="width: 25%;" sortBy="#{prop.CPF}">
+                <h:outputText value="#{prop.CPF}" />
             </p:column>
-            <p:column headerText="Telefone" style="width: 25%;" sortBy="#{item.telefone}">
-                <h:outputText value="#{item.telefone}" />
+            <p:column headerText="Telefone" style="width: 25%;" sortBy="#{prop.telefone}">
+                <h:outputText value="#{prop.telefone}" />
             </p:column>
-            <p:column headerText="Endereço" style="width: 25%;" sortBy="#{item.endereco}">
-                <h:outputText value="#{item.endereco}" />
+            <p:column headerText="Endereço" style="width: 25%;" sortBy="#{prop.endereco}">
+                <h:outputText value="#{prop.endereco}" />
             </p:column>
 	</p:dataTable>
-</h:body>
+      </h:form>
+    </section>
+  </h:body>
 </html>

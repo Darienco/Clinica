@@ -25,7 +25,7 @@ public class Atendimento implements Serializable {
     @JoinColumn(name = "animal", referencedColumnName = "IdAnimal")
     private Animal animal;
     
-    @Column(length = 500, name = "Anotacoes")
+    @Column(name = "Anotacoes")
     private String Anotacoes;
     
     @Column(name = "Data")
