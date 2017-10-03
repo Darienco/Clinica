@@ -21,25 +21,26 @@
       <h:link class="btn" outcome="cadAtendimento" value="Atendimentos"/>
     </section>
     <section class="main-content">
-      <p:growl  id="mensagem" showDetail="true" autoUpdate="true" />
+      
       <h:form id="frmCad">
+        <p:growl  id="mensagem" showDetail="true" autoUpdate="true"/>
         <h2>Cadastro de Médicos</h2>
-	<h:panelGrid class="dark-grey" columns="2">          
-          <h:outputLabel for="nome" value="Nome:" />
-          <h:inputText id="nome" value="#{MedicoMB.medico.nome}" 
+	<h:panelGrid class="dark-grey" columns="2">
+          <h:outputLabel for="nome" value="Nome:"/>
+          <h:inputText id="Nome" value="#{MedicoMB.medico.nome}" 
                        required="true" requiredMessage="Nome obrigatório"/>
 	  <h:outputLabel value="CRMV:" />
-          <h:inputText id="CRMV" value="#{MedicoMB.medico.CRMV}" />
+          <h:inputText id="CRMV" value="#{MedicoMB.medico.CRMV}"/>
 	</h:panelGrid>
         <p:commandButton class="save-btn" value="Salvar" action="#{MedicoMB.incluir()}"
-                           update="frmCad, :frmTable" />
-        <p:commandButton title="Consulta por nome" onclick="PF('consultaDialog').show()" update=":formBusca" action="#{MedicoMB.consultarPorNome()}" value="Consultar" />
+                         update="frmCad, :frmTable" />
+        <p:commandButton title="Consulta por nome" action="#{MedicoMB.listarPorNomeParcial()}" update=":frmTable" value="Consultar"/>
+        <p:commandButton style="margin-left: 10px" title="Lista todos os médicos" action="#{MedicoMB.listar}" update=":frmTable" value="Listar"/>
       </h:form>
       <h:form id="frmTable">
 	<p:dataTable id="tbMedico" var="medico" value="#{MedicoMB.lista}"
-            paginator="true" rows="50" emptyMessage="Nenhum médico cadastrado"
-            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-            rowsPerPageTemplate="10,15,25,50,100">
+            paginator="true" rows="50" emptyMessage="Nenhum médico cadastrado" rowsPerPageTemplate="10,15,25,50,100"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
           <f:facet name="header">Lista de Médicos</f:facet>
           <p:column headerText="Código" style="width: 10%;"
             sortBy="#{medico.codigo}">
@@ -85,23 +86,10 @@
                         styleClass="ui-state-hover"/> 
                 </p:outputPanel>
             </h:form>
-        </p:dialog>
-        <p:dialog id="consultaDialog" widgetVar="consultaDialog" modal="true" header="Consulta de médico">   
-            <h:form id="formBusca">  
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Código: "/>
-                    <p:inputText id="codigo" disabled="true" 
-                        value="#{MedicoMB.medico.codigo}" />                       
-                    <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{MedicoMB.aux.nome}"
-                        required="true" requiredMessage="Nome obrigatório" />
-                    <h:outputLabel value="CRMV: "/>
-                    <p:inputText maxlength="50" value="#{MedicoMB.aux.CRMV}" />
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>  <br/>
+        </p:dialog> <br/>
         <footer class="site-footer">
-         <!--   <span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span> -->
+            <p:commandButton value="Sair"/>
+            <span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>
         </footer>
     </section>
   </h:body>

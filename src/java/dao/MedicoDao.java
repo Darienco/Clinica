@@ -25,7 +25,7 @@ public class MedicoDao implements Serializable {
         manager.close();
         return med;
     }        
-    public Medico buscarPorNome(String nome){
+    public Medico buscarPorNome(String nome) {
         Medico temp;
         manager = JpaUtil.getEntityManager();
         String consulta = "SELECT c FROM Medico c WHERE c.Nome = :nome";
@@ -35,6 +35,17 @@ public class MedicoDao implements Serializable {
         manager.close();
         return temp;
     }    
+    public List<Medico> buscarPorNomeParcial(String nome) {
+        List<Medico> list;
+        manager = JpaUtil.getEntityManager();
+        String consulta = "SELECT c FROM Medico c WHERE c.nome LIKE CONCAT('%',:nome,'%')";
+        TypedQuery<Medico> query = manager.createQuery(consulta, Medico.class);
+        query.setParameter("nome", nome);
+        list = query.getResultList();
+        manager.close();
+        return list;
+    }    
+
     public boolean excluir(Medico med){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 

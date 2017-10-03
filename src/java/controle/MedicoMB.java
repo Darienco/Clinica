@@ -31,23 +31,12 @@ public class MedicoMB {
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
 		"Médico alterado com sucesso!"));
     }
-    public void consultarPorCodigo() {
-	long codMedico = med.getCodigo();
-	med = dao.buscarPorCodigo((int) codMedico);
-	if (med == null || med.getCodigo()== 0) {
-            FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Consulta",
-		"Médico não encontrado, código: " + codMedico + "!"));
-	} listar();
-    }
-    public void consultarPorNome() {
-	String nomeMedico = med.getNome();
-	med = dao.buscarPorNome(nomeMedico);
-	if (med == null) {
-            FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Consulta",
-		"Médico não encontrado, nome: " + nomeMedico + "!"));
-	} listar();
+   
+    public void listarPorNomeParcial() {
+        lista = dao.buscarPorNomeParcial(med.getNome());
+        for(Medico n: lista){
+        System.out.println(n.getNome());}
+        
     }
     public void excluir(Medico med) {
 	dao.excluir(med);
