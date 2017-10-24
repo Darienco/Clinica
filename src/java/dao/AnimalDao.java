@@ -35,6 +35,16 @@ public class AnimalDao implements Serializable {
         manager.close();
         return temp;
     }
+    public List<Animal> buscarPorNomeParcial(String nome) {
+        List<Animal> list;
+        manager = JpaUtil.getEntityManager();
+        String consulta = "SELECT c FROM Medico c WHERE c.Nome LIKE CONCAT('%',:nome,'%')";
+        TypedQuery<Animal> query = manager.createQuery(consulta, Animal.class);
+        query.setParameter("nome", nome);
+        list = query.getResultList();
+        manager.close();
+        return list;
+    }    
     public boolean excluir(Animal anml){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 

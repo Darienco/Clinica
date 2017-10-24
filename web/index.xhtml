@@ -3,37 +3,36 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
   <h:head>
-	<meta charset="UTF-8"/>
-	<title>Login - Sistema Clínica Veterinária</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<meta name="theme-color" content="#157878"/>
-	<link rel="stylesheet" href="css/normalize.css"/>	
-	<link rel="stylesheet" href="css/cayman.css"/>
-	<link rel="stylesheet" href="css/login.css"/>
-	<link rel="stylesheet" href="../css/cayman.css"/>
-	<link rel="stylesheet" href="../css/login.css"/>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
+    <meta charset="UTF-8"/>
+    <title>Login - Sistema Clínica Veterinária</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#157878"/>
+    <link rel="stylesheet" href="css/normalize.css"/>	
+    <link rel="stylesheet" href="css/cayman.css"/>
+    <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="../css/cayman.css"/>
+    <link rel="stylesheet" href="../css/login.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
   </h:head>
   <h:body>
-  <section class="page-header">
-      <h1 class="project-name">Sistema Clínica Veterinária</h1><br/>
-	  <div class="login-block">
-		<h:form id="formLogin">
-			<h2>Usuário</h2>
-            <p:inputText id="campoLogin" size="14" value="#{loginMB.func.CPF}" maxlength="14" required="true" requiredMessage="CPF obrigatório" >
-            </p:inputText>
-			<h2>Senha</h2>
-            <p:password  feedback="false" size="100"  maxlength="100" value="#{loginMB.func.senha}" required="true" requiredMessage="Senha obrigatória" />  
-            <span/>
-            <p:commandButton value="OK" ajax="false" action="#{loginMB.autenticar()}" styleClass="ui-state-hover"/>
-			<p:messages showIcon="false" closable="true" />
-		 </h:form>
-	  </div>
+    <section class="page-header">
+      <h1 class="project-name">Sistema Clínica Veterinária</h1> <br/>
+      <div class="login-block">
+        <h:form id="formLogin">
+	  <h2>Usuário</h2>
+          <p:inputText id="campoLogin" size="14" value="#{loginMB.func.CPF}" maxlength="14" required="true" requiredMessage="CPF obrigatório" />
+          <h2>Senha</h2>
+          <p:password  feedback="false" size="100"  maxlength="100" value="#{loginMB.func.senha}" required="true" requiredMessage="Senha obrigatória" />  
+          <span/>
+          <p:commandButton value="OK" ajax="false" action="#{loginMB.autenticar()}" styleClass="ui-state-hover"/>
+	  <p:messages showIcon="false" closable="true" />
+	</h:form>
+      </div>
     </section>
-	<section class="main-content">
-	  <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>
+    <section class="main-content">
+      <footer class="site-footer">
+        <!--<span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>-->
       </footer>
-	</section>
+    </section>
   </h:body>
 </html>

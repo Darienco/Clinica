@@ -1,7 +1,6 @@
 package controle;
   
 import dao.MedicoDao;
-import java.util.ArrayList;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +11,6 @@ import modelo.Medico;
 @ManagedBean(name="MedicoMB")
 @SessionScoped
 public class MedicoMB {
-    private static final long serialVersionUID = 8103328274400432976L;
     private Medico med;
     private Medico aux;
     private List<Medico> lista;
@@ -31,12 +29,10 @@ public class MedicoMB {
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
 		"Médico alterado com sucesso!"));
     }
-   
     public void listarPorNomeParcial() {
         lista = dao.buscarPorNomeParcial(med.getNome());
         for(Medico n: lista){
-        System.out.println(n.getNome());}
-        
+        System.out.println(n.getNome());}        
     }
     public void excluir(Medico med) {
 	dao.excluir(med);

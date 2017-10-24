@@ -11,7 +11,6 @@ import util.JpaUtil;
 
 public class ProprietarioDao implements Serializable {
     EntityManager manager;
-    
     public boolean alterar(Proprietario prop){
         manager = JpaUtil.getEntityManager();
         manager.getTransaction().begin();
@@ -19,15 +18,13 @@ public class ProprietarioDao implements Serializable {
         manager.getTransaction().commit();
         manager.close();
         return true;
-    }
-    
+    }    
     public Proprietario buscarPorCodigo(int cod){
         manager = JpaUtil.getEntityManager();
         Proprietario prop = manager.find(Proprietario.class, cod);
         manager.close();
         return prop;
-    }
-        
+    }        
     public Proprietario buscarPorNome(String nome){
         Proprietario temp;
         manager = JpaUtil.getEntityManager();
@@ -38,19 +35,26 @@ public class ProprietarioDao implements Serializable {
         manager.close();
         return temp;
     }
-    
+    public List<Proprietario> buscarPorNomeParcial(String nome) {
+        List<Proprietario> list;
+        manager = JpaUtil.getEntityManager();
+        String consulta = "SELECT c FROM Proprietario c WHERE c.nome LIKE CONCAT('%',:nome,'%')";
+        TypedQuery<Proprietario> query = manager.createQuery(consulta, Proprietario.class);
+        query.setParameter("nome", nome);
+        list = query.getResultList();
+        manager.close();
+        return list;
+    }    
     public boolean excluir(Proprietario prop){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 
         tx.begin();
-        // recupera a referência ao objeto
         Proprietario temp = manager.find(Proprietario.class, prop.getCodigo());
         manager.remove(temp);
         tx.commit();
         manager.close();
         return true;
-    }
-    
+    }    
     public boolean inserir(Proprietario prop){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
@@ -59,8 +63,7 @@ public class ProprietarioDao implements Serializable {
         tx.commit();
         manager.close();
         return true;
-    }
-    
+    }    
     public List<Proprietario> listarTodos(){
         manager = JpaUtil.getEntityManager();
         CriteriaQuery<Proprietario> query = manager.getCriteriaBuilder().createQuery(Proprietario.class);

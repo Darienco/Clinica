@@ -4,49 +4,95 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
   <h:head>
-      <title>Cadastro de Funcionário</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8"/>
+    <title>Cadastro de Funcionário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/cayman.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>
   </h:head>
   <h:body>
-    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
-    <h:form id="frmAluno">
-	<p:panelGrid columns="2" style="horizontal-align:center">
-            <h:outputText value="Código:" />
-            <h:inputText id="cod" value="#{FuncionarioMB.funcionario.codigo}" />
+    <section class="page-header">
+      <h1 class="project-name">Sistema Clínica Veterinária</h1> <br/>
+      <h:link class="btn" outcome="cadMedico" value="Cadastro de Médico"/>
+      <h:link class="btn" outcome="cadProprietario" value="Cadastro de Proprietário"/>    
+      <h:link class="btn" outcome="cadFuncionario" value="Cadastro de Funcionário"/>
+      <h:link class="btn" outcome="cadAnimal" value="Cadastro de Animal"/>
+      <h:link class="btn" outcome="cadAtendimento" value="Atendimentos"/>
+    </section>
+    <section class="main-content">
+      <p:growl  id="mensagem" showDetail="true" autoUpdate="true"/>
+      <h:form id="frmCad">
+        <h2>Cadastro de Funcionário</h2>
+	<h:panelGrid class="dark-grey" columns="2">
 	    <h:outputLabel value="Nome:" />
             <h:inputText id="Nome" value="#{FuncionarioMB.funcionario.nome}" />
             <h:outputLabel for="CPF" value="CPF:" />
             <h:inputText id="CPF" value="#{FuncionarioMB.funcionario.CPF}" />
             <h:outputLabel for="Senha" value="Senha:" />
             <h:inputText id="Senha" value="#{FuncionarioMB.funcionario.senha}" />
-	</p:panelGrid>
-        <p:panelGrid columns="6">
-            <h:commandButton action="#{FuncionarioMB.incluir}" value="Incluir" />
-            <h:commandButton action="#{FuncionarioMB.alterar}" value="Alterar" />
-            <h:commandButton action="#{FuncionarioMB.consultar}" value="Consultar" />
-            <h:commandButton action="#{FuncionarioMB.listar}" value="Listar" />
-            <h:commandButton action="#{FuncionarioMB.excluir}" value="Excluir" />
-            <h:commandButton action="#{FuncionarioMB.limpar}" value="Limpar" />
-	</p:panelGrid>
-    </h:form>
-	<p:dataTable id="tabela" var="item" value="#{FuncionarioMB.lista}"
+	</h:panelGrid>
+        <p:commandButton class="save-btn" value="Salvar" action="#{FuncionarioMB.incluir()}"
+                             update="frmCad, :frmTable" />  
+        <p:commandButton title="Consulta por nome" action="#{FuncionarioMB.listarPorNomeParcial()}" update=":frmTable" value="Consultar"/>
+        <p:commandButton style="margin-left: 10px" title="Lista todos os funcionários" action="#{FuncionarioMB.listar}" update=":frmTable" value="Listar"/>     
+      </h:form>
+      <h:form id="frmTable">
+	<p:dataTable id="tbFunc" var="func" value="#{FuncionarioMB.lista}"
             paginator="true" rows="50" emptyMessage="Não há registros na lista"
             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
             rowsPerPageTemplate="10,15,25,50,100">
             <f:facet name="header">Lista de Funcionários</f:facet>
-            <p:column headerText="Código" style="width: 10%;"
-                      sortBy="#{item.codigo}">
-                <h:outputText value="#{item.codigo}" />
+            <p:column headerText="Código" style="width: 10%;" sortBy="#{func.codigo}">
+                <h:outputText value="#{func.codigo}" />
             </p:column>
-            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
-                <h:outputText value="#{item.nome}" />
+            <p:column headerText="Nome" style="width: 25%;" sortBy="#{func.nome}">	
+                <h:outputText value="#{func.nome}" />
             </p:column>
-            <p:column headerText="CPF" style="width: 25%;" sortBy="#{item.CPF}">
-                <h:outputText value="#{item.CPF}" />
+            <p:column headerText="CPF" style="width: 25%;" sortBy="#{func.CPF}">
+                <h:outputText value="#{func.CPF}" />
             </p:column>
-            <p:column headerText="Senha" style="width: 25%;" sortBy="#{item.senha}">
-                <h:outputText value="#{item.senha}" />
+            <p:column headerText="Senha" style="width: 25%;" sortBy="#{func.senha}">
+                <h:outputText value="#{func.senha}" />
+            </p:column>
+            <p:column headerText="">
+                <p:commandButton value="Editar" action="#{FuncionarioMB.preparaAlterar(func)}" onclick="PF('editarDialog').show()" update=":formAltera"/>
+            </p:column>
+            <p:column headerText="">
+                <p:commandButton value="Excluir" actionListener="#{FuncionarioMB.excluir(func)}" update=":frmTable">
+                <p:confirm header="Excluir funcionário" message="Tem certeza que deseja excluir este funcionário?"/>
+              </p:commandButton>
             </p:column>
 	</p:dataTable>
-</h:body>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+          <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+          </p:outputPanel>
+        </p:confirmDialog>
+      </h:form>
+      <p:dialog id="editarDialog" widgetVar="editarDialog" modal="true" header="Alteração de funcionário">   
+            <h:form id="formAltera">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Código: "/>
+                    <p:inputText id="codigo" disabled="true" value="#{FuncionarioMB.funcionario.codigo}"/>                       
+                    <h:outputLabel value="Nome: "/>
+                    <p:inputText value="#{FuncionarioMB.aux.nome}" required="true" requiredMessage="Nome obrigatório"/>
+                    <h:outputLabel value="CPF: "/>
+                    <p:inputText maxlength="14" value="#{FuncionarioMB.aux.CPF}"/>
+                    <h:outputLabel value="Senha: "/>
+                    <p:inputText value="#{FuncionarioMB.aux.senha}"/>
+                </h:panelGrid>
+                <p:outputPanel style="width: 100%; text-align:center" > <br/>
+                    <p:commandButton value="Continuar" ajax="false"
+                        action="#{FuncionarioMB.alterar()}" styleClass="ui-state-hover"/> 
+                </p:outputPanel>
+            </h:form>
+      </p:dialog> <br/>
+      <footer class="site-footer">
+            <p:commandButton value="Sair"/>
+            <!--<span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>-->
+      </footer>
+    </section>
+  </h:body>
 </html>

@@ -1,7 +1,6 @@
 package controle;
   
 import dao.FuncionarioDao;
-import java.util.ArrayList;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,88 +11,68 @@ import modelo.Funcionario;
 @ManagedBean(name="FuncionarioMB")
 @SessionScoped
 public class FuncionarioMB {
-    private static final long serialVersionUID = 8103328274400432976L;
     private Funcionario func;
-    private List<Funcionario> lista = new ArrayList<>();
- 
-    FuncionarioDao dao = new FuncionarioDao();
- 
+    private Funcionario aux;
+    private List<Funcionario> lista;
+    private FuncionarioDao dao;
     public FuncionarioMB() {
         func = new Funcionario();
-        listar();
+        dao = new FuncionarioDao();
+        lista = dao.listarTodos();
     }
- 
+    public void preparaAlterar(Funcionario func){
+        setAux(func);
+    } 
     public void alterar() {
-	System.out.println("Alterar funcionário");
 	dao.alterar(func);
-	listar();
-	FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Manutenção de funcionário: ",
+	FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
 		"Funcionário alterado com sucesso!"));
     }
- 
-    public void consultar() {
-	long codFunc = func.getCodigo();
-	System.out.println("Consultar");
-	func = dao.buscarPorCodigo((int) codFunc);
-	if (func == null || func.getCodigo()== 0) {
-            FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		"Manutenção de funcionário: ",
-		"Funcionário não encontrado, código:" + codFunc + "!"));
-	}
-	listar();
-    }
- 
-    public void excluir() {
-        System.out.println("Excluir funcionário");
+    public void listarPorNomeParcial() {
+        lista = dao.buscarPorNomeParcial(func.getNome());
+        for(Funcionario n: lista){
+        System.out.println(n.getNome());}
+    } 
+    public void excluir(Funcionario func) {
 	dao.excluir(func);
-	listar();
-	FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-		"Manutenção de funcionário: ",
+	FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
 		"Funcionário excluído com sucesso!"));
-    }
- 
+        lista.remove(func);
+        listar();
+    } 
+    public void incluir() {
+	dao.inserir(func);
+	FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
+		"Funcionário incluido com sucesso!"));
+        lista.add(func);
+        limpar();
+        listar();
+    } 
     public Funcionario getFuncionario() {
         return func;
-    }
- 
+    } 
     public List<Funcionario> getLista() {
 	return lista;
     }
- 
-    public void incluir() {
-	System.out.println("Incluir funcionário");
-	dao.inserir(func);
-	listar();
-	FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-		"Manutenção de funcionário: ",
-		"Funcionário incluido com sucesso!"));
-    }
- 
     public void limpar() {
-	System.out.println("Limpar");
-	System.out.println(func);
 	func = new Funcionario();
-    }
- 
+    } 
     public void listar() {
-	System.out.println("Listar funcionário");
-        lista = dao.listarTodos();
-    }
- 
+	lista = dao.listarTodos();
+    } 
     public void setFuncionario(Funcionario func) {
         this.func = func;
-    }
- 
+    } 
     public void setLista(List<Funcionario> lista) {
         this.lista = lista;
     }
+    public Funcionario getAux() {
+        return aux;
+    }
+    public void setAux(Funcionario aux) {
+        this.aux = aux;
+    }   
 }

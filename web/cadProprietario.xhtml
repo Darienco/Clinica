@@ -25,24 +25,20 @@
       <h:form id="frmCad">
         <h2>Cadastro de Proprietário</h2>
         <h:panelGrid class="dark-grey" columns="2">
-          <h:outputText value="Código:" />
-          <h:inputText id="codigo" value="#{ProprietarioMB.proprietario.codigo}" />
           <h:outputText value="Nome:" />
           <h:inputText id="Nome" maxlength="150" requiredMessage="Nome obrigatório"
                 required="true" value="#{ProprietarioMB.proprietario.nome}" />
 	  <h:outputLabel value="CPF:" />
-          <h:inputText id="CPF" maxlength="14" requiredMessage="CPF obrigatório"
-                required="true" value="#{ProprietarioMB.proprietario.CPF}" />
+          <h:inputText id="CPF" maxlength="14" value="#{ProprietarioMB.proprietario.CPF}"/>
           <h:outputLabel for="Telefone" value="Telefone:" />
-          <h:inputText id="Telefone" maxlength="20"
-                         value="#{ProprietarioMB.proprietario.telefone}" />
+          <h:inputText id="Telefone" maxlength="20" value="#{ProprietarioMB.proprietario.telefone}" />
           <h:outputLabel for="Endereco" value="Endereço:" />
-          <h:inputText id="Endereco" maxlength="500"
-                         value="#{ProprietarioMB.proprietario.endereco}" />
+          <h:inputText id="Endereco" maxlength="500" value="#{ProprietarioMB.proprietario.endereco}" />
         </h:panelGrid>
-        <p:commandButton value="Salvar" action="#{ProprietarioMB.incluir()}"
+        <p:commandButton class="save-btn" value="Salvar" action="#{ProprietarioMB.incluir()}"
                              update="frmCad, :frmTable" />  
-        <p:commandButton action="#{ProprietarioMB.consultar()}" value="Consultar" />
+        <p:commandButton title="Consulta por nome" action="#{ProprietarioMB.listarPorNomeParcial()}" update=":frmTable" value="Consultar"/>
+        <p:commandButton style="margin-left: 10px" title="Lista todos os proprietários" action="#{ProprietarioMB.listar}" update=":frmTable" value="Listar"/>     
       </h:form>
       <h:form id="frmTable">
 	<p:dataTable id="tbProp" var="prop" value="#{ProprietarioMB.lista}"
@@ -66,8 +62,46 @@
             <p:column headerText="Endereço" style="width: 25%;" sortBy="#{prop.endereco}">
                 <h:outputText value="#{prop.endereco}" />
             </p:column>
+            <p:column headerText="">
+                <p:commandButton value="Editar" action="#{ProprietarioMB.preparaAlterar(prop)}" onclick="PF('editarDialog').show()" update=":formAltera"/>
+            </p:column>
+            <p:column headerText="">
+              <p:commandButton value="Excluir" actionListener="#{ProprietarioMB.excluir(prop)}" update=":frmTable">
+                <p:confirm header="Excluir proprietário" message="Tem certeza que deseja excluir este proprietário?"/>
+              </p:commandButton>
+            </p:column>
 	</p:dataTable>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+          <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+          </p:outputPanel>
+        </p:confirmDialog>
       </h:form>
+      <p:dialog id="editarDialog" widgetVar="editarDialog" modal="true" header="Alteração de proprietário">   
+            <h:form id="formAltera">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Código: "/>
+                    <p:inputText id="codigo" disabled="true" value="#{ProprietarioMB.proprietario.codigo}"/>                       
+                    <h:outputLabel value="Nome: "/>
+                    <p:inputText value="#{ProprietarioMB.aux.nome}" required="true" requiredMessage="Nome obrigatório"/>
+                    <h:outputLabel value="CPF: "/>
+                    <p:inputText maxlength="14" value="#{ProprietarioMB.aux.CPF}"/>
+                    <h:outputLabel value="Telefone: "/>
+                    <p:inputText maxlength="20" value="#{ProprietarioMB.aux.telefone}"/>
+                    <h:outputLabel value="Endereço: "/>
+                    <p:inputText maxlength="500" value="#{ProprietarioMB.aux.endereco}"/>
+                </h:panelGrid>
+                <p:outputPanel style="width: 100%; text-align:center" > <br/>
+                    <p:commandButton value="Continuar" ajax="false"
+                        action="#{ProprietarioMB.alterar()}" styleClass="ui-state-hover"/> 
+                </p:outputPanel>
+            </h:form>
+        </p:dialog> <br/>
+      <footer class="site-footer">
+            <p:commandButton value="Sair"/>
+            <!--<span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>-->
+      </footer>
     </section>
   </h:body>
 </html>

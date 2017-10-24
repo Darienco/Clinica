@@ -4,61 +4,109 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
   <h:head>
-    <title>Cadastro de Atendimento</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8"/>
+    <title>Atendimentos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../css/normalize.css"/>
+    <link rel="stylesheet" href="../css/cayman.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'/>	
   </h:head>
   <h:body>
-    <p:growl  id="mensagem" showDetail="true" autoUpdate="true"  />
-    <h:form id="frmAtendimento">
-      <p:panelGrid columns="2" style="horizontal-align:center">
-        <h:outputText value="Código:" />
-        <h:inputText id="codigo" value="#{AtendimentoMB.atendimento.codigo}" />
-        <h:outputLabel value="Animal:" />
-        <p:selectOneMenu id="comboAnimal" converter="animalConverter"
+    <section class="page-header">
+      <h1 class="project-name">Sistema Clínica Veterinária</h1> <br/>
+      <h:link class="btn" outcome="cadMedico" value="Cadastro de Médico"/>
+      <h:link class="btn" outcome="cadProprietario" value="Cadastro de Proprietário"/>    
+      <h:link class="btn" outcome="cadFuncionario" value="Cadastro de Funcionário"/>
+      <h:link class="btn" outcome="cadAnimal" value="Cadastro de Animal"/>
+      <h:link class="btn" outcome="cadAtendimento" value="Atendimentos"/>
+    </section>
+    <section class="main-content">
+      <p:growl id="mensagem" showDetail="true" autoUpdate="true"/>
+      <h:form id="frmCad">
+        <h2>Atendimentos</h2>
+        <p:panelGrid class="dark-grey" columns="2">
+          <h:outputLabel value="Animal:" />
+          <p:selectOneMenu id="comboAnimal" converter="animalConverter"
             value="#{AtendimentoMB.animalSelecionado}"            
             required="true" requiredMessage="Selecione um animal" >
-        <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
-        <f:selectItems value="#{AtendimentoMB.animais}" var="item" 
+            <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
+            <f:selectItems value="#{AtendimentoMB.animais}" var="item" 
                        itemValue="#{item}" itemLabel="#{item.nome}"/>  
-        </p:selectOneMenu>  
-	<h:outputLabel value="Anotações:" />
-        <h:inputText id="Anotacoes" value="#{AtendimentoMB.atendimento.anotacoes}" />        
-        <h:outputLabel value="Data:" />
-        <p:calendar id="Data" value="#{AtendimentoMB.atendimento.data}" pattern="dd/MM/yyyy"
-                    locale="pt"/>        
-        <h:outputLabel value="Valor:" />
-        <h:inputText id="Valor" value="#{AtendimentoMB.atendimento.valor}" />                
-      </p:panelGrid>
-        <p:panelGrid columns="6">
-            <h:commandButton action="#{AtendimentoMB.incluir}" value="Incluir" />
-            <h:commandButton action="#{AtendimentoMB.alterar}" value="Alterar" />
-            <h:commandButton action="#{AtendimentoMB.consultar}" value="Consultar" />
-            <h:commandButton action="#{AtendimentoMB.listar}" value="Listar" />
-            <h:commandButton action="#{AtendimentoMB.excluir}" value="Excluir" />
-            <h:commandButton action="#{AtendimentoMB.limpar}" value="Limpar" />
-	</p:panelGrid>
-    </h:form>
-	<p:dataTable id="tabela" var="item" value="#{AtendimentoMB.lista}"
-            paginator="true" rows="50" emptyMessage="Não há registros na lista"
-            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-            rowsPerPageTemplate="10,15,25,50,100">
+          </p:selectOneMenu>  
+	  <h:outputLabel value="Anotações:"/>
+          <h:inputText id="Anotacoes" value="#{AtendimentoMB.atendimento.anotacoes}" />        
+          <h:outputLabel value="Data:"/>
+          <p:calendar id="Data" value="#{AtendimentoMB.atendimento.data}" pattern="dd/MM/yyyy" locale="pt"/>        
+          <h:outputLabel value="Valor:"/>
+          <h:inputText id="Valor" value="#{AtendimentoMB.atendimento.valor}" />                
+        </p:panelGrid>
+        <p:commandButton class="save-btn" value="Salvar" action="#{AtendimentoMB.incluir()}" update="frmCad, :frmTable" />  
+        <p:commandButton title="Lista todos os atendimentos" action="#{AtendimentoMB.listar}" update=":frmTable" value="Listar"/>     
+      </h:form>
+      <h:form id="frmTable">
+	<p:dataTable id="tbAtndmto" var="atndmto" value="#{AtendimentoMB.lista}"
+            paginator="true" rows="50" emptyMessage="Não há registros na lista" rowsPerPageTemplate="10,15,25,50,100"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
             <f:facet name="header">Lista de Atendimentos</f:facet>
-            <p:column headerText="Código" style="width: 10%;"
-                      sortBy="#{item.codigo}">
-                <h:outputText value="#{item.codigo}" />
+            <p:column headerText="Código" style="width: 10%;" sortBy="#{atndmto.codigo}">
+                <h:outputText value="#{atndmto.codigo}" />
             </p:column>
-            <p:column headerText="Animal" style="width: 25%;" sortBy="#{item.nome}">	
-                <h:outputText value="#{item.animal.nome}" />
+            <p:column headerText="Animal" style="width: 25%;" sortBy="#{atndmto.animal.nome}">	
+                <h:outputText value="#{atndmto.animal.nome}" />
             </p:column>
-            <p:column headerText="Anotações" style="width: 25%;" sortBy="#{item.raca}">
-                <h:outputText value="#{item.anotacoes}" />
+            <p:column headerText="Anotações" style="width: 25%;" sortBy="#{atndmto.anotacoes}">
+                <h:outputText value="#{atndmto.anotacoes}" />
             </p:column>
-            <p:column headerText="Data" style="width: 25%;" sortBy="#{item.especie}">
-                <h:outputText value="#{item.data}" />
+            <p:column headerText="Data" style="width: 25%;" sortBy="#{atndmto.data}">
+                <h:outputText value="#{atndmto.data}" />
             </p:column>
-            <p:column headerText="Valor" style="width: 25%;" sortBy="#{item.prop.nome}">
-                <h:outputText value="#{item.valor}" />
+            <p:column headerText="Valor" style="width: 25%;" sortBy="#{atndmto.valor}">
+                <h:outputText value="#{atndmto.valor}" />
             </p:column>
+            <p:column headerText="">
+            <p:commandButton value="Editar" action="#{AtendimentoMB.preparaAlterar(atndmto)}" onclick="PF('editarDialog').show()" update=":formAltera"/>
+          </p:column>
+          <p:column headerText="">
+            <p:commandButton value="Excluir" actionListener="#{AnimalMB.excluir(atndmnto)}" update=":frmTable">
+              <p:confirm header="Excluir atendimento" message="Tem certeza que deseja excluir este atendimento?" />
+            </p:commandButton>
+          </p:column>
 	</p:dataTable>
-</h:body>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+          <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+          </p:outputPanel>
+        </p:confirmDialog>
+        </h:form>
+        <p:dialog id="editarDialog" widgetVar="editarDialog" modal="true" header="Alteração de atendimento">   
+            <h:form id="formAltera">  
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Código:"/>
+                    <p:inputText id="codigo" disabled="true" value="#{AtendimentoMB.atendimento.codigo}"/>                       
+                    <h:outputLabel value="Animal:"/>                    
+                    <p:selectOneMenu id="comboAnimal" value="#{AtendimentoMB.aux.animal}"
+                        converter="animalConverter" required="true" requiredMessage="Selecione um animal">
+                      <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
+                      <f:selectItems value="#{AtendimentoMB.animais}" var="item" itemValue="#{item}" itemLabel="#{item.nome}"/>  
+                    </p:selectOneMenu>
+                    <h:outputLabel value="Anotações:"/>
+                    <p:inputText value="#{AtendimentoMB.aux.anotacoes}"/>
+                    <h:outputLabel value="Data:"/>
+                    <p:calendar id="Data" value="#{AtendimentoMB.aux.data}" pattern="dd/MM/yyyy" locale="pt"/>
+                    <h:outputLabel value="Valor:"/>
+                    <p:inputText value="#{AtendimentoMB.aux.valor}"/>                     
+                </h:panelGrid>
+                <p:outputPanel style="width: 100%; text-align:center" > <br/>
+                    <p:commandButton value="Continuar" ajax="false"
+                        action="#{AtendimentoMB.alterar()}" styleClass="ui-state-hover"/> 
+                </p:outputPanel>
+            </h:form>
+        </p:dialog> <br/>
+        <footer class="site-footer">
+            <p:commandButton value="Sair"/>
+            <!--<span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>-->
+        </footer>
+    </section>
+  </h:body>
 </html>

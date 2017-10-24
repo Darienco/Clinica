@@ -1,4 +1,4 @@
-    package controle;
+package controle;
 
 import dao.AnimalDao;
 import dao.ProprietarioDao;
@@ -14,7 +14,6 @@ import modelo.Proprietario;
 @ManagedBean(name="AnimalMB")
 @SessionScoped
 public class AnimalMB implements Serializable {
-    private static long serialVersionUID = 8103328274400432976L;
     private Animal anml;
     private Animal aux;
     private List<Animal> lista;
@@ -39,15 +38,11 @@ public class AnimalMB implements Serializable {
             new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
 		"Animal alterado com sucesso!"));
     }
-    public void consultarPorCodigo() {
-	long codAnml = anml.getCodigo();
-	anml = anmlDao.buscarPorCodigo((int) codAnml);
-	if (anml == null || anml.getCodigo()== 0) {
-            FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Consulta",
-		"Animal não encontrado, código:" + codAnml + "!"));
-	} listar();
-    } 
+    public void listarPorNomeParcial() {
+        lista = anmlDao.buscarPorNomeParcial(anml.getNome());
+        for(Animal n: lista){
+        System.out.println(n.getNome());}        
+    }
     public void excluir(Animal anml) {
 	anmlDao.excluir(anml);
 	FacesContext.getCurrentInstance().addMessage( null,

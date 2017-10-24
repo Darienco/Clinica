@@ -24,17 +24,7 @@ public class MedicoDao implements Serializable {
         Medico med = manager.find(Medico.class, cod);
         manager.close();
         return med;
-    }        
-    public Medico buscarPorNome(String nome) {
-        Medico temp;
-        manager = JpaUtil.getEntityManager();
-        String consulta = "SELECT c FROM Medico c WHERE c.Nome = :nome";
-        TypedQuery<Medico> query = manager.createQuery(consulta, Medico.class);
-        query.setParameter("nome", nome);
-        temp = query.getSingleResult();
-        manager.close();
-        return temp;
-    }    
+    } 
     public List<Medico> buscarPorNomeParcial(String nome) {
         List<Medico> list;
         manager = JpaUtil.getEntityManager();
@@ -45,7 +35,6 @@ public class MedicoDao implements Serializable {
         manager.close();
         return list;
     }    
-
     public boolean excluir(Medico med){
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction(); 

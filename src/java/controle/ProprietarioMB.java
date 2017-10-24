@@ -1,7 +1,6 @@
 package controle;
   
 import dao.ProprietarioDao;
-import java.util.ArrayList;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,88 +11,68 @@ import modelo.Proprietario;
 @ManagedBean(name="ProprietarioMB")
 @SessionScoped
 public class ProprietarioMB {
-    private static final long serialVersionUID = 8103328274400432976L;
     private Proprietario prop;
-    private List<Proprietario> lista = new ArrayList<>();
- 
-    ProprietarioDao dao = new ProprietarioDao();
- 
+    private Proprietario aux;
+    private List<Proprietario> lista;
+    private ProprietarioDao dao;
     public ProprietarioMB() {
         prop = new Proprietario();
-        listar();
+        dao = new ProprietarioDao();
+        lista = dao.listarTodos();
     }
- 
+    public void preparaAlterar(Proprietario prop){
+        setAux(prop);
+    } 
     public void alterar() {
-    System.out.println("Alterar Proprietário");
-    dao.alterar(prop);
-    listar();
-    FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-            "Manutenção de Proprietário: ",
-            "Proprietário alterado com sucesso!"));
+        dao.alterar(prop);
+        FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
+		"Proprietário alterado com sucesso!"));
     }
- 
-    public void consultar() {
-        long codProprietario = prop.getCodigo();
-        System.out.println("Consultar");
-        prop = dao.buscarPorCodigo((int) codProprietario);
-        if (prop == null || prop.getCodigo()== 0) {
-                FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-            "Manutenção de Proprietário: ",
-            "Proprietário não encontrado, código: " + codProprietario + "!"));
-        }
+    public void listarPorNomeParcial() {
+        lista = dao.buscarPorNomeParcial(prop.getNome());
+        for(Proprietario n: lista){
+        System.out.println(n.getNome());}
+    }
+    public void excluir(Proprietario prop) {
+        dao.excluir(prop);
+        FacesContext.getCurrentInstance().addMessage( null,
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Exclusão",
+		"Proprietário excluído com sucesso!"));
+        lista.remove(prop);
         listar();
     }
- 
-    public void excluir() {
-        System.out.println("Excluir Proprietário");
-    dao.excluir(prop);
-    listar();
-    FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-        "Manutenção de Proprietário: ",
-        "Proprietário excluído com sucesso!"));
+    public void incluir() {
+        dao.inserir(prop);
+        FacesContext.getCurrentInstance().addMessage( null, 
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro",
+            "Proprietário incluído com sucesso!"));
+        lista.add(prop);
+        limpar();
+        listar();
+    } 
+    public void limpar() {
+        prop = new Proprietario();
+    } 
+    public void listar() {
+        lista = dao.listarTodos();
     }
- 
     public Proprietario getProprietario() {
         return prop;
-    }
- 
+    } 
+    public void setProprietario(Proprietario prop) {
+        this.prop = prop;
+    } 
     public List<Proprietario> getLista() {
         return lista;
     }
- 
-    public void incluir() {
-    System.out.println("Incluir Proprietário");
-    dao.inserir(prop);
-    listar();
-    FacesContext.getCurrentInstance().addMessage(
-            null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO,
-        "Manutenção de Proprietário: ",
-        "Proprietário incluído com sucesso!"));
-    }
- 
-    public void limpar() {
-        System.out.println("Limpar");
-        System.out.println(prop);
-        prop = new Proprietario();
-    }
- 
-    public void listar() {
-        System.out.println("Listar Proprietário");
-        lista = dao.listarTodos();
-    }
- 
-    public void setProprietario(Proprietario prop) {
-        this.prop = prop;
-    }
- 
     public void setLista(List<Proprietario> lista) {
         this.lista = lista;
+    }
+    public Proprietario getAux() {
+        return aux;
+    }
+    public void setAux(Proprietario aux) {
+        this.aux = aux;
     }
 }
