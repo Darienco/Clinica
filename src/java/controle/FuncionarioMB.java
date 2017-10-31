@@ -1,5 +1,5 @@
 package controle;
-  
+// Made by Juan Carlos Cardoso de Oliveira  
 import dao.FuncionarioDao;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
@@ -25,28 +25,20 @@ public class FuncionarioMB {
     } 
     public void alterar() {
 	dao.alterar(func);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Funcionário alterado com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Funcionário alterado com sucesso!"));
     }
     public void listarPorNomeParcial() {
         lista = dao.buscarPorNomeParcial(func.getNome());
-        for(Funcionario n: lista){
-        System.out.println(n.getNome());}
-    } 
+    }
     public void excluir(Funcionario func) {
 	dao.excluir(func);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Funcionário excluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Funcionário excluído com sucesso!"));
         lista.remove(func);
         listar();
     } 
     public void incluir() {
 	dao.inserir(func);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Funcionário incluido com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Funcionário cadastrado com sucesso!"));
         lista.add(func);
         limpar();
         listar();

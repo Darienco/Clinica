@@ -1,5 +1,5 @@
 package dao;
-
+// Made by Juan Carlos Cardoso de Oliveira
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -12,7 +12,7 @@ import util.JpaUtil;
 public class FuncionarioDao implements Serializable {
     EntityManager manager;    
     public Funcionario autenticar(Funcionario func) {
-        Funcionario temp = null; // administrador retornado na consulta ao banco
+        Funcionario temp = null;
         manager = JpaUtil.getEntityManager();
         TypedQuery<Funcionario> query = manager.createQuery("SELECT f FROM Funcionario f WHERE f.CPF = :CPF AND f.Senha = :Senha",
                 Funcionario.class); 

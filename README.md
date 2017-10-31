@@ -8,11 +8,3 @@
 * [x] Criação de telas e classes controladoras para Cadastro de Proprietário
 * [x] Criação de telas e classes controladoras para Cadastro de Animais
 * [x] Criação de telas e classes controladoras para Realização de Atendimento
-
-Coisas a fazer:
-
-tela animais
- arrumar consulta
- arrumar listar
-
-restrição de login

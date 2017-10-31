@@ -6,14 +6,12 @@
     border-top: 5px solid #3a3a3a;
     margin: 0 auto;
 }
-
 .login-block h2 {
     text-align: center;
     color: #000;
     margin-top: 0;
     margin-bottom: 20px;
 }
-
 .login-block input {
     width: 100%;
     height: 42px;
@@ -25,21 +23,17 @@
     padding: 0 10px 0 10px;
     outline: none;
 }
-
 .login-block input#username {
     background: #fff;
     background-size: 16px 80px;
 }
-
 .login-block input#password {
     background: #fff;
     background-size: 16px 80px;
 }
-
 .login-block input:active, .login-block input:focus {
     border: 1px solid #333333;
 }
-
 .login-block button {
     width: 100%;
     height: 40px;
@@ -54,7 +48,6 @@
     outline: none;
     cursor: pointer;
 }
-
 .login-block button:hover {
     background: #474747;
 }

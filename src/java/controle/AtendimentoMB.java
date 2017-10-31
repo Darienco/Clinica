@@ -1,5 +1,5 @@
 package controle;
-
+// Made by Juan Carlos Cardoso de Oliveira
 import dao.AnimalDao;
 import dao.AtendimentoDao;
 import java.util.ArrayList;
@@ -34,33 +34,25 @@ public class AtendimentoMB {
     } 
     public void alterar() {
 	dao.alterar(atndmnto);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Atendimento alterado com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Atendimento alterado com sucesso!"));
     }
     public void consultar() {
 	long codAtendimento = atndmnto.getCodigo();
 	atndmnto = dao.buscarPorCodigo((int) codAtendimento);
 	if (atndmnto == null || atndmnto.getCodigo()== 0) {
-            FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Consulta",
-		"Atendimento não encontrado, código: " + codAtendimento + "!"));
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"Consulta","Atendimento não encontrado, código: "+codAtendimento));
 	} listar();
     }
     public void excluir(Atendimento atndmnto) {
 	dao.excluir(atndmnto);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Atendimento excluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Atendimento excluído com sucesso!"));
         lista.remove(atndmnto);
         listar();
     }
     public void incluir() {
         atndmnto.setAnimal(getAnimalSelecionado());
 	dao.inserir(atndmnto);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Atendimento incluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Atendimento cadastrado com sucesso!"));
         lista.add(atndmnto);
         limpar();
         listar();

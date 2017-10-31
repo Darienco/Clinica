@@ -1,5 +1,5 @@
 package controle;
-  
+// Made by Juan Carlos Cardoso de Oliveira  
 import dao.ProprietarioDao;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
@@ -25,9 +25,7 @@ public class ProprietarioMB {
     } 
     public void alterar() {
         dao.alterar(prop);
-        FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Proprietário alterado com sucesso!"));
+        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração","Proprietário alterado com sucesso!"));
     }
     public void listarPorNomeParcial() {
         lista = dao.buscarPorNomeParcial(prop.getNome());
@@ -36,17 +34,13 @@ public class ProprietarioMB {
     }
     public void excluir(Proprietario prop) {
         dao.excluir(prop);
-        FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Exclusão",
-		"Proprietário excluído com sucesso!"));
+        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Exclusão","Proprietário excluído com sucesso!"));
         lista.remove(prop);
         listar();
     }
     public void incluir() {
         dao.inserir(prop);
-        FacesContext.getCurrentInstance().addMessage( null, 
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro",
-            "Proprietário incluído com sucesso!"));
+        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Cadastro","Proprietário cadastrado com sucesso!"));
         lista.add(prop);
         limpar();
         listar();

@@ -1,5 +1,5 @@
 package controle;
-
+// Made by Juan Carlos Cardoso de Oliveira
 import dao.AnimalDao;
 import dao.ProprietarioDao;
 import java.io.Serializable;
@@ -34,29 +34,21 @@ public class AnimalMB implements Serializable {
     }
     public void alterar() {
 	anmlDao.alterar(getAux());
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Animal alterado com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Animal alterado com sucesso!"));
     }
     public void listarPorNomeParcial() {
-        lista = anmlDao.buscarPorNomeParcial(anml.getNome());
-        for(Animal n: lista){
-        System.out.println(n.getNome());}        
+        lista = anmlDao.buscarPorNomeParcial(anml.getNome());        
     }
     public void excluir(Animal anml) {
 	anmlDao.excluir(anml);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Exclusão",
-		"Animal excluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Exclusão","Animal excluído com sucesso!"));
         lista.remove(anml);
         listar();
     }
     public void incluir() {
         anml.setProp(proprietarioSelecionado);
 	anmlDao.inserir(anml);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro",
-		"Animal incluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Cadastro","Animal cadastrado com sucesso!"));
         lista.add(anml);
         limpar();
         listar();

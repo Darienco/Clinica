@@ -1,5 +1,5 @@
 package controle;
-  
+// Made by Juan Carlos Cardoso de Oliveira  
 import dao.MedicoDao;
 import java.util.List;   
 import javax.faces.application.FacesMessage;
@@ -25,28 +25,20 @@ public class MedicoMB {
     }    
     public void alterar() {
 	dao.alterar(getAux());
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Alteração",
-		"Médico alterado com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Alteração","Médico alterado com sucesso!"));
     }
     public void listarPorNomeParcial() {
         lista = dao.buscarPorNomeParcial(med.getNome());
-        for(Medico n: lista){
-        System.out.println(n.getNome());}        
     }
     public void excluir(Medico med) {
 	dao.excluir(med);
-	FacesContext.getCurrentInstance().addMessage( null,
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Exclusão",
-		"Médico excluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Exclusão","Médico excluído com sucesso!"));
         lista.remove(med);
         listar();
     }
     public void incluir() {
 	dao.inserir(med);
-	FacesContext.getCurrentInstance().addMessage( null, 
-            new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro",
-            "Médico incluído com sucesso!"));
+	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Cadastro","Médico cadastrado com sucesso!"));
         lista.add(med);
         limpar();
         listar();

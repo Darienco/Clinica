@@ -32,52 +32,46 @@
           <h:outputLabel value="Espécie:" />
           <h:inputText id="Especie" value="#{AnimalMB.animal.especie}" />
           <h:outputLabel value="Proprietário:" />
-          <p:selectOneMenu id="comboProprietario" 
-            value="#{AnimalMB.proprietarioSelecionado}"
-            converter="proprietarioConverter" >
-          <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
-          <f:selectItems value="#{AnimalMB.proprietarios}" var="item" 
-                    itemValue="#{item}" itemLabel="#{item.nome}"/>  
-          </p:selectOneMenu>        
+          <p:selectOneMenu id="comboProprietario" value="#{AnimalMB.proprietarioSelecionado}" converter="proprietarioConverter">
+            <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
+            <f:selectItems value="#{AnimalMB.proprietarios}" var="item" itemValue="#{item}" itemLabel="#{item.nome}"/>  
+          </p:selectOneMenu>
         </h:panelGrid>
         <p:commandButton class="save-btn" value="Salvar" action="#{AnimalMB.incluir()}" update="frmCad, :frmTable" />  
         <p:commandButton title="Consulta por nome" action="#{AnimalMB.listarPorNomeParcial()}" update=":frmTable" value="Consultar"/>
         <p:commandButton style="margin-left: 10px" title="Lista todos os animais" action="#{AnimalMB.listar}" update=":frmTable" value="Listar"/>     
       </h:form>
       <h:form id="frmTable">
-	<p:dataTable id="tbAnimal" var="animal" value="#{AnimalMB.lista}"
-            paginator="true" rows="50" emptyMessage="Não há registros na lista"
-            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-            rowsPerPageTemplate="10,15,25,50,100">
+	<p:dataTable id="tbAnimal" var="animal" value="#{AnimalMB.lista}" paginator="true" rows="50" emptyMessage="Não há registros na lista" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,15,25,50,100">
           <f:facet name="header">Lista de Animais</f:facet>
           <p:column headerText="Código" style="width: 10%;" sortBy="#{animal.codigo}">
-            <h:outputText value="#{animal.codigo}" />
+            <h:outputText value="#{animal.codigo}"/>
           </p:column>
           <p:column headerText="Nome" style="width: 25%;" sortBy="#{animal.nome}">	
-            <h:outputText value="#{animal.nome}" />
+            <h:outputText value="#{animal.nome}"/>
           </p:column>
           <p:column headerText="Raça" style="width: 25%;" sortBy="#{animal.raca}">
-            <h:outputText value="#{animal.raca}" />
+            <h:outputText value="#{animal.raca}"/>
           </p:column>
           <p:column headerText="Espécie" style="width: 25%;" sortBy="#{animal.especie}">
-            <h:outputText value="#{animal.especie}" />
+            <h:outputText value="#{animal.especie}"/>
           </p:column>
           <p:column headerText="Proprietário" style="width: 25%;" sortBy="#{animal.prop.nome}">
-            <h:outputText value="#{animal.prop.nome}" />
+            <h:outputText value="#{animal.prop.nome}"/>
           </p:column>
           <p:column headerText="">
             <p:commandButton value="Editar" action="#{AnimalMB.preparaAlterar(animal)}" onclick="PF('editarDialog').show()" update=":formAltera"/>
           </p:column>
           <p:column headerText="">
             <p:commandButton value="Excluir" actionListener="#{AnimalMB.excluir(animal)}" update=":frmTable">
-              <p:confirm header="Excluir animal" message="Tem certeza que deseja excluir este animal?" />
+              <p:confirm header="Excluir animal" message="Tem certeza que deseja excluir este animal?"/>
             </p:commandButton>
           </p:column>
 	</p:dataTable>
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
           <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
-            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
-            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"/>
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"/>
           </p:outputPanel>
         </p:confirmDialog>
       </h:form>
@@ -85,32 +79,29 @@
             <h:form id="formAltera">  
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Código:"/>
-                    <p:inputText id="codigo" disabled="true" 
-                                 value="#{AnimalMB.animal.codigo}"/>                       
+                    <p:inputText id="codigo" disabled="true" value="#{AnimalMB.animal.codigo}"/>                       
                     <h:outputLabel value="Nome:"/>
-                    <p:inputText value="#{AnimalMB.aux.nome}"
-                        required="true" requiredMessage="Nome obrigatório"/>
+                    <p:inputText value="#{AnimalMB.aux.nome}" required="true" requiredMessage="Nome obrigatório"/>
                     <h:outputLabel value="Raça:"/>
-                    <p:inputText value="#{AnimalMB.aux.raca}" />
+                    <p:inputText value="#{AnimalMB.aux.raca}"/>
                     <h:outputLabel value="Espécie:"/>
                     <p:inputText value="#{AnimalMB.aux.especie}"/>
-                    <h:outputLabel value="Proprietário: "/>
-                    <p:selectOneMenu id="comboProprietario" value="#{AnimalMB.aux.prop}"
-                        converter="proprietarioConverter" required="true" requiredMessage="Selecione um proprietário" >
+                    <h:outputLabel value="Proprietário:"/>
+                    <p:selectOneMenu id="comboProprietario" value="#{AnimalMB.aux.prop}" converter="proprietarioConverter" required="true" requiredMessage="Selecione um proprietário">
                       <f:selectItem itemValue="#{null}" itemLabel="Selecione uma opção"/>
-                      <f:selectItems value="#{AnimalMB.proprietarios}" var="item" 
-                                itemValue="#{item}" itemLabel="#{item.nome}"/>  
+                      <f:selectItems value="#{AnimalMB.proprietarios}" var="item" itemValue="#{item}" itemLabel="#{item.nome}"/>  
                     </p:selectOneMenu>   
                 </h:panelGrid>
-                <p:outputPanel style="width: 100%; text-align:center" > <br/>
-                    <p:commandButton value="Continuar" ajax="false"
-                        action="#{AnimalMB.alterar()}" styleClass="ui-state-hover"/> 
+                <p:outputPanel style="width: 100%; text-align:center"> <br/>
+                    <p:commandButton value="Continuar" ajax="false" action="#{AnimalMB.alterar()}" styleClass="ui-state-hover"/> 
                 </p:outputPanel>
             </h:form>
         </p:dialog> <br/>
         <footer class="site-footer">
-            <p:commandButton value="Sair"/>
-            <!--<span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>-->
+          <h:form id="frmSair">
+            <p:commandButton action="#{loginMB.actionLogout()}" value="Sair"/>
+          </h:form>
+          <span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>
         </footer>
     </section>
   </h:body>

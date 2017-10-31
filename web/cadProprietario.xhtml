@@ -99,8 +99,10 @@
             </h:form>
         </p:dialog> <br/>
       <footer class="site-footer">
-            <p:commandButton value="Sair"/>
-            <!--<span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>-->
+        <h:form id="frmSair">
+          <p:commandButton action="#{loginMB.actionLogout()}" value="Sair"/>
+        </h:form>
+        <span class="site-footer-owner"><a href="https://github.com/Darienco/Clinica">Sistema Clínica Veterinária</a> is maintained by <a href="https://github.com/juanoliveira82">juanoliveira82</a>.</span>
       </footer>
     </section>
   </h:body>

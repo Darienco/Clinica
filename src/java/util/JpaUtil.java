@@ -1,5 +1,5 @@
 package util;
-
+// Made by Juan Carlos Cardoso de Oliveira
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

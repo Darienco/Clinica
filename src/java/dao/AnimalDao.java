@@ -1,5 +1,5 @@
 package dao;
-
+// Made by Juan Carlos Cardoso de Oliveira
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
